@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
-{% load staticfiles %}
-{% block title %}逆变器信息详情{% endblock %}
+{% load static %}
+{% block title %}Inverter Information Details{% endblock %}
 {% block custom_css %}
 <link href="{% static 'css/mic.css' %}" rel="stylesheet" type="text/css">
 <link href="{% static 'css/bootstrap-datetimepicker.min.css' %}" rel="stylesheet" xmlns="http://www.w3.org/1999/html">
@@ -14,27 +14,27 @@
     <div class="container-fluid">
         <!-- 数据信息 -->
         <div class="dev_info-box1">
-            <div style="text-align: center;color: white;background-color: lightskyblue;height: 40px;margin-bottom: 10px;"><h4 style="line-height: 40px;margin-top: 0px">数据信息</h4></div>
+            <div style="text-align: center;color: white;background-color: lightskyblue;height: 40px;margin-bottom: 10px;"><h4 style="line-height: 40px;margin-top: 0px">Data Information</h4></div>
             <!-- 光伏逆变器 -->
             {% if pvI_data != '' %}
                 <div style="width: 96%;height: auto;margin: 2%;box-shadow: 0 5px 15px #d4d4d4;">
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th class="info" colspan="10" style="text-align: center;">光伏逆变器{{ pvI_data.pv_num }}</th>
+                                <th class="info" colspan="10" style="text-align: center;">Photovoltaic Inverter{{ pvI_data.pv_num }}</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr class="active">
-                                <td class="">参数</td>
-                                <td class="" colspan="2">日运行时间(h)</td>
-                                <td class="" colspan="2">系统日发电量(度)</td>
-                                <td class="" colspan="2">总运行时间(h)</td>
-                                <td class="" colspan="2">系统累计发电量(度)</td>
-                                <td class="">CO2减排量(kg)</td>
+                                <td class="">Parameter</td>
+                                <td class="" colspan="2">Daily Operating Time(h)</td>
+                                <td class="" colspan="2">System Daily Power Generation(kWh)</td>
+                                <td class="" colspan="2">Total Operating Time(h)</td>
+                                <td class="" colspan="2">System Cumulative Power Generation(kWh)</td>
+                                <td class="">CO2 Reduction (kg)</td>
                             </tr>
                             <tr>
-                                <td class="">数值</td>
+                                <td class="">Value</td>
                                 <td colspan="2">{{ pvI_data2.day_runtime }}</td>
                                 <td colspan="2">{{ pvI_data2.day_gen_power }}</td>
                                 <td colspan="2">{{ pvI_data2.total_runtime }}</td>
@@ -53,8 +53,8 @@
                                 </div>
                                 <div class="col-sm-3">
                                     <select name="date" class="form-control" onchange="AutoSubmit()">
-                                        <option value="day" {% if date == 'day'%}selected{% endif %}>日</option>
-                                        <option value="month" {% if date == 'month'%}selected{% endif %}>月</option>
+                                        <option value="day" {% if date == 'day'%}selected{% endif %}>Day</option>
+                                        <option value="month" {% if date == 'month'%}selected{% endif %}>Month</option>
                                     </select>
                                 </div>
                             </div>
@@ -87,7 +87,7 @@
                         var option = {
                             //标题
                             title:{
-                                text: '设备功率输出',
+                                text: 'Device Power Output',
                                 x: 'center'
                             },
                             // 提示框组件
@@ -98,21 +98,21 @@
                             legend:{
                                 bottom:'left',
                                 data:[{
-                                    name: '有功功率',
+                                    name: 'Active Power',
                                     icon: 'circle'
                                     }]
                             },
                             xAxis: {
-                                name: '时间',
+                                name: 'Time',
                                 type: 'category',
                                 data: times
                             },
                             yAxis: {
-                                name: '功率/kw',
+                                name: 'Power/kW',
                                 type: 'value'
                             },
                             series: [{
-                                name: '有功功率',
+                                name: 'Active Power',
                                 type: 'line',
                                 itemStyle: {
                                     normal: {
@@ -137,7 +137,7 @@
                     var option = {
                         //标题
                         title:{
-                            text: '三相逆变输出电压',
+                            text: 'Three-Phase Inverter Output Voltage',
                             x: 'center'
                         },
                         // 提示框组件
@@ -148,27 +148,27 @@
                         legend:{
                             bottom:'left',
                             data:[{
-                                name: 'ab相电压',
+                                name: 'AB Phase Voltage',
                                 icon: 'circle'
                                 },{
-                                name: 'bc相电压',
+                                name: 'BC Phase Voltage',
                                 icon: 'circle'
                                 },{
-                                name: 'ca相电压',
+                                name: 'CA Phase Voltage',
                                 icon: 'circle'
                                 }]
                         },
                         xAxis: {
-                            name: '时间',
+                            name: 'Time',
                             type: 'category',
                             data: volt_time_dates
                         },
                         yAxis: {
-                            name: '电压/V',
+                            name: 'Voltage/V',
                             type: 'value'
                         },
                         series: [{
-                            name: 'ab相电压',
+                            name: 'AB Phase Voltage',
                             type: 'line',
                             itemStyle: {
                                 normal: {
@@ -177,7 +177,7 @@
                             },
                             data: volt_ab_dates
                         }, {
-                            name: 'bc相电压',
+                            name: 'BC Phase Voltage',
                             type: 'line',
                             itemStyle: {
                                 normal: {
@@ -186,7 +186,7 @@
                             },
                             data: volt_bc_dates
                         }, {
-                            name: 'ca相电压',
+                            name: 'CA Phase Voltage',
                             type: 'line',
                             itemStyle: {
                                 normal: {
@@ -212,205 +212,205 @@
         </div>
         <!-- 报警信息 -->
         <div class="dev_info-box2">
-            <div style="text-align: center;color: white;background-color: lightskyblue;height: 40px;margin-bottom: 10px;"><h4 style="line-height: 40px;margin-top: 0px">监控警报信息</h4></div>
+            <div style="text-align: center;color: white;background-color: lightskyblue;height: 40px;margin-bottom: 10px;"><h4 style="line-height: 40px;margin-top: 0px">Monitor Alarm Message</h4></div>
             <!-- 如果是光伏逆变器则显示以下信息 -->
             {% if  pvI_monitor != '' %}
-                <h4 align="center">逆变器异常状态监测</h4>
+                <h4 align="center">Inverter abnormal status monitoring</h4>
                 <div style="background-color: whitesmoke">
                     <div class="col-sm-12">
-                        <label class="control-label col-sm-2">状态：</label>
+                        <label class="control-label col-sm-2">status:</label>
                         <label class="control-label col-sm-2">
                             {% if pvI_monitor.status_down == 0 %}
-                                停机
+                                Shutdown
                             {% endif %}
                             {% if pvI_monitor.status_ongrid == 0 %}
-                                待机
+                                Standby
                             {% endif %}
                             {% if pvI_monitor.status_selftest == 0 %}
-                                自检
+                                Self-Test
                             {% endif %}
                             {% if pvI_monitor.status_standby == 0 %}
-                                并网
+                                Grid-Connected
                             {% endif %}
                         </label>
                     </div>
                     <div class="col-sm-4">
-                        <label class="control-label col-sm-8">闭锁未自锁：</label>
+                        <label class="control-label col-sm-8">Lock not self-locked:</label>
                         <label class="control-label col-sm-4">
                             {% if pvI_monitor.locking_self == 0 %}
-                                是
+                                Yes
                             {% elif pvI_monitor.locking_self == 1 %}
-                                否
+                                No
                             {% endif %}
                         </label>
                     </div>
                     <div class="col-sm-4">
-                        <label class="control-label col-sm-7">急停：</label>
+                        <label class="control-label col-sm-7">Emergency Stop:</label>
                         <label class="control-label col-sm-5">
                             {% if pvI_monitor.emergency_stop == 0 %}
-                                启动
+                                Activated
                             {% elif pvI_monitor.emergency_stop == 1 %}
-                                未启动
+                                Not Activated
                             {% endif %}
                         </label>
                     </div>
                     <div class="col-sm-4">
-                        <label class="control-label col-sm-8">远程本地：</label>
+                        <label class="control-label col-sm-8">Remote Local:</label>
                         <label class="control-label col-sm-4">
                             {% if pvI_monitor.remote_local == 0 %}
-                                是
+                                Yes
                             {% elif pvI_monitor.remote_local == 1 %}
-                                否
+                                No
                             {% endif %}
                         </label>
                     </div>
                     <div class="col-sm-4">
-                        <label class="control-label col-sm-8">PV反接：</label>
+                        <label class="control-label col-sm-8">PV Reverse Connection:</label>
                         <label class="control-label col-sm-4">
                             {% if pvI_monitor.PV_reverse_connection == 0 %}
-                                是
+                                Yes
                             {% elif pvI_monitor.PV_reverse_connection == 1 %}
-                                否
+                                No
                             {% endif %}
                         </label>
                     </div>
                     <div class="col-sm-8">
-                        <label class="control-label col-sm-5">PV对地绝缘阻抗：</label>
+                        <label class="control-label col-sm-5">PV Insulation Resistance:</label>
                         <label class="control-label col-sm-2">
                             {% if pvI_monitor.PV_insulation_resistance == 0 %}
-                                <span style="color: green">正常</span>
+                                <span style="color: green">Normal</span>
                             {% elif pvI_monitor.PV_insulation_resistance == 2 %}
-                                <span style="color: red">异常</span>
+                                <span style="color: red">Abnormal</span>
                             {% endif %}
                         </label>
                     </div>
                     <div class="col-sm-4">
-                        <label class="control-label col-sm-8">直流过压：</label>
+                        <label class="control-label col-sm-8">DC Overvoltage:</label>
                         <label class="control-label col-sm-4">
                             {% if pvI_monitor.DC_overvoltage == 0 %}
-                                <span style="color: green">正常</span>
+                                <span style="color: green">Normal</span>
                             {% elif pvI_monitor.DC_overvoltage == 1 %}
-                                <span style="color: red">异常</span>
+                                <span style="color: red">Abnormal</span>
                             {% endif %}
                         </label>
                     </div>
                     <div class="col-sm-4">
-                        <label class="control-label col-sm-8">电网电压：</label>
+                        <label class="control-label col-sm-8">Grid Voltage:</label>
                         <label class="control-label col-sm-4">
                             {% if pvI_monitor.power_voltage == 0 %}
-                                <span style="color: green">正常</span>
+                                <span style="color: green">Normal</span>
                             {% elif pvI_monitor.power_voltage == 1 %}
-                               <span style="color: red">异常</span>
+                               <span style="color: red">Abnormal</span>
                             {% endif %}
                         </label>
                     </div>
                     <div class="col-sm-4">
-                        <label class="control-label col-sm-8">电网频率：</label>
+                        <label class="control-label col-sm-8">Grid Frequency:</label>
                         <label class="control-label col-sm-4">
                             {% if pvI_monitor.grid_frequency == 0 %}
-                                <span style="color: green">正常</span>
+                                <span style="color: green">Normal</span>
                             {% elif pvI_monitor.grid_frequency == 1 %}
-                               <span style="color: red">异常</span>
+                               <span style="color: red">Abnormal</span>
                             {% endif %}
                         </label>
                     </div>
                     <div class="col-sm-4">
-                        <label class="control-label col-sm-8">电网反序：</label>
+                        <label class="control-label col-sm-8">Grid Reverse Order:</label>
                         <label class="control-label col-sm-4">
                             {% if pvI_monitor.grid_reverse_order == 0 %}
-                                是
+                                Yes
                             {% elif pvI_monitor.grid_reverse_order == 1 %}
-                                否
+                                No
                             {% endif %}
                         </label>
                     </div>
                     <div class="col-sm-4">
-                        <label class="control-label col-sm-8">逆变器过载：</label>
+                        <label class="control-label col-sm-8">Inverter Overload:</label>
                         <label class="control-label col-sm-4">
                             {% if pvI_monitor.inverter_overload == 0 %}
-                                <span style="color: green">正常</span>
+                                <span style="color: green">Normal</span>
                             {% elif pvI_monitor.inverter_overload == 1 %}
-                               <span style="color: red">异常</span>
+                               <span style="color: red">Abnormal</span>
                             {% endif %}
                         </label>
                     </div>
                     <div class="col-sm-4">
-                        <label class="control-label col-sm-8">逆变器过热：</label>
+                        <label class="control-label col-sm-8">Inverter Overheating:</label>
                         <label class="control-label col-sm-4">
                             {% if pvI_monitor.inverter_overheating == 0 %}
-                                <span style="color: green">正常</span>
+                                <span style="color: green">Normal</span>
                             {% elif pvI_monitor.inverter_overheating == 1 %}
-                               <span style="color: red">异常</span>
+                               <span style="color: red">Abnormal</span>
                             {% endif %}
                         </label>
                     </div>
                     <div class="col-sm-4">
-                        <label class="control-label col-sm-8">逆变器短路：</label>
+                        <label class="control-label col-sm-8">Inverter Short Circuit:</label>
                         <label class="control-label col-sm-4">
                             {% if pvI_monitor.inverter_short_circuit == 0 %}
-                                <span style="color: green">正常</span>
+                                <span style="color: green">Normal</span>
                             {% elif pvI_monitor.inverter_short_circuit == 1 %}
-                               <span style="color: red">异常</span>
+                               <span style="color: red">Abnormal</span>
                             {% endif %}
                         </label>
                     </div>
                     <div class="col-sm-4">
-                        <label class="control-label col-sm-8">烟雾报警：</label>
+                        <label class="control-label col-sm-8">Smoke Alarm:</label>
                         <label class="control-label col-sm-4">
                             {% if pvI_monitor.smoke_alarm == 0 %}
-                                <span style="color: green">正常</span>
+                                <span style="color: green">Normal</span>
                             {% elif pvI_monitor.smoke_alarm == 1 %}
-                               <span style="color: red">异常</span>
+                               <span style="color: red">Abnormal</span>
                             {% endif %}
                         </label>
                     </div>
                     <div class="col-sm-4">
-                        <label class="control-label col-sm-8">环境温度过热：</label>
+                        <label class="control-label col-sm-8">Ambient Temperature Overheating:</label>
                         <label class="control-label col-sm-4">
                             {% if pvI_monitor.ambient_temperature_overheating == 0 %}
-                                <span style="color: green">正常</span>
+                                <span style="color: green">Normal</span>
                             {% elif pvI_monitor.ambient_temperature_overheating == 1 %}
-                               <span style="color: red">异常</span>
+                               <span style="color: red">Abnormal</span>
                             {% endif %}
                         </label>
                     </div>
                     <div class="col-sm-4">
-                        <label class="control-label col-sm-8">夜间无功补偿：</label>
+                        <label class="control-label col-sm-8">Night Reactive Power Compensation:</label>
                         <label class="control-label col-sm-4">
                             {% if pvI_monitor.reactive_power_compensation == 0 %}
-                                是
+                                Yes
                             {% elif pvI_monitor.reactive_power_compensation == 1 %}
-                                否
+                                No
                             {% endif %}
                         </label>
                     </div>
                     <div class="col-sm-4">
-                        <label class="control-label col-sm-8">直流防雷故障：</label>
+                        <label class="control-label col-sm-8">DC Lightning Protection Fault:</label>
                         <label class="control-label col-sm-4">
                             {% if pvI_monitor.DC_lightning_protection == 0 %}
-                                <span style="color: green">正常</span>
+                                <span style="color: green">Normal</span>
                             {% elif pvI_monitor.DC_lightning_protection == 1 %}
-                               <span style="color: red">异常</span>
+                               <span style="color: red">Abnormal</span>
                             {% endif %}
                         </label>
                     </div>
                     <div class="col-sm-4">
-                        <label class="control-label col-sm-8">交流防雷故障：</label>
+                        <label class="control-label col-sm-8">AC Lightning Protection Fault:</label>
                         <label class="control-label col-sm-4">
                             {% if pvI_monitor.AC_lightning_protection == 0 %}
-                                <span style="color: green">正常</span>
+                                <span style="color: green">Normal</span>
                             {% elif pvI_monitor.AC_lightning_protection == 1 %}
-                               <span style="color: red">异常</span>
+                               <span style="color: red">Abnormal</span>
                             {% endif %}
                         </label>
                     </div>
                     <div class="col-sm-4">
-                        <label class="control-label col-sm-8">孤岛保护：</label>
+                        <label class="control-label col-sm-8">Island Protection:</label>
                         <label class="control-label col-sm-4">
                             {% if pvI_monitor.island_protection == 0 %}
-                                启动
+                                Activated
                             {% elif pvI_monitor.island_protection == 1 %}
-                                未启动
+                                Not Activated
                             {% endif %}
                         </label>
                     </div>

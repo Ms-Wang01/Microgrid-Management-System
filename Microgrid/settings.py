@@ -26,9 +26,10 @@ SECRET_KEY = 'l(a_=4v*_0yd3d*m8(kqm$8v&6)po3br*a-veyhmc8wp0c64hz'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+# DEBUG = False
 
-ALLOWED_HOSTS = []
-
+# ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -41,9 +42,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'xadmin',
     'crispy_forms',
+    'crispy_bootstrap3',
     'users',
     'microgrids',
+    'import_export'
 ]
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
 AUTH_USER_MODEL = "users.UserProfile"
 LOGIN_URL = '/login/'
 MIDDLEWARE = [
@@ -80,14 +84,14 @@ WSGI_APPLICATION = 'Microgrid.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'microgriddata',
-        'USER': 'microgrid',
-        'PASSWORD': 'microgridpasswd',
-        'HOST': '116.196.107.225',
+        'USER': 'wbj',
+        'PASSWORD': 'w4zhjiqi',
+        'HOST': 'localhost',
         'PORT': '3306',
         'OPTIONS': {'init_command': 'SET default_storage_engine=INNODB;'},
     }
@@ -129,6 +133,7 @@ USE_TZ = False
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
+STATIC_ROOT = './collectStatic/'
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (

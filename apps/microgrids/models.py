@@ -268,10 +268,10 @@ class WebMicrogrid(models.Model):
     area_type = models.IntegerField(choices=AREA_TYPE, verbose_name=u'区域类别')
 
     # 创建设备所属指向上级num
-    parent_area = models.ForeignKey('self',to_field='num',blank=True, null=True, related_name='sub',verbose_name=u'设备上级')
+    parent_area = models.ForeignKey('self',to_field='num',blank=True, null=True, related_name='sub',verbose_name=u'设备上级', on_delete=models.CASCADE)
 
     # 控制区域归属区域或设备(控制区中子区域会关联到整个微网需要控制的区域或设备)
-    control_belong = models.ForeignKey('self', to_field='num', null=True, blank=True, related_name='sub2', verbose_name=u'控制区域所属')
+    control_belong = models.ForeignKey('self', to_field='num', null=True, blank=True, related_name='sub2', verbose_name=u'控制区域所属', on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = u'微电网设备web管理'
@@ -283,12 +283,12 @@ class WebMicrogrid(models.Model):
 
 # 图片存储
 class Img(models.Model):
-    name = models.CharField(max_length=20, verbose_name=u'名称')
-    name_h = models.CharField(max_length=30, verbose_name=u'汉语名称')  # 便于添加编辑
-    img = models.ImageField(upload_to='img', verbose_name=u'图片')
+    name = models.CharField(max_length=20, verbose_name='名称')
+    name_h = models.CharField(max_length=30, verbose_name='汉语名称')
+    img = models.ImageField(upload_to='img', verbose_name='图片')
 
     class Meta:
-        verbose_name = u'图片管理'
+        verbose_name = '图片管理'
         verbose_name_plural = verbose_name
 
     def __str__(self):

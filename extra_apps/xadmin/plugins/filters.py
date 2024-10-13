@@ -3,15 +3,15 @@ from future.utils import iteritems
 from xadmin import widgets
 from xadmin.plugins.utils import get_context_dict
 
-from django.contrib.admin.utils import get_fields_from_path, lookup_needs_distinct
+from django.contrib.admin.utils import get_fields_from_path, lookup_spawns_duplicates
 from django.core.exceptions import SuspiciousOperation, ImproperlyConfigured, ValidationError
 from django.db import models
-from django.db.models.fields import FieldDoesNotExist
-from django.db.models.sql.query import LOOKUP_SEP, QUERY_TERMS
+from django.core.exceptions import FieldDoesNotExist
+from django.db.models.sql.query import LOOKUP_SEP, Query
 from django.template import loader
 from django.utils import six
 from django.utils.encoding import smart_str
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 from xadmin.filters import manager as filter_manager, FILTER_PREFIX, SEARCH_VAR, DateFieldListFilter, \
     RelatedFieldSearchFilter
@@ -44,7 +44,7 @@ class FilterPlugin(BaseAdminPlugin):
 
         # Last term in lookup is a query term (__exact, __startswith etc)
         # This term can be ignored.
-        if len(parts) > 1 and parts[-1] in QUERY_TERMS:
+        if len(parts) > 1 and parts[-1] in Query:
             parts.pop()
 
         # Special case -- foo__id__exact and foo__id queries are implied
@@ -59,9 +59,9 @@ class FilterPlugin(BaseAdminPlugin):
                 # Lookups on non-existants fields are ok, since they're ignored
                 # later.
                 return True
-            if hasattr(field, 'rel'):
-                model = field.rel.to
-                rel_name = field.rel.get_related_field().name
+            if hasattr(field, 'remote_field'):
+                model = field.remote_field.to
+                rel_name = field.remote_field.get_related_field().name
             elif is_related_field(field):
                 model = field.model
                 rel_name = model._meta.pk.name
@@ -128,7 +128,7 @@ class FilterPlugin(BaseAdminPlugin):
 
                     # Check if we need to use distinct()
                     use_distinct = (use_distinct or
-                                    lookup_needs_distinct(self.opts, field_path))
+                                    lookup_spawns_duplicates(self.opts, field_path))
                 if spec and spec.has_output():
                     try:
                         new_qs = spec.do_filte(queryset)
@@ -150,7 +150,7 @@ class FilterPlugin(BaseAdminPlugin):
         try:
             for key, value in lookup_params.items():
                 use_distinct = (
-                    use_distinct or lookup_needs_distinct(self.opts, key))
+                    use_distinct or lookup_spawns_duplicates(self.opts, key))
         except FieldDoesNotExist as e:
             raise IncorrectLookupParameters(e)
 
@@ -195,7 +195,7 @@ class FilterPlugin(BaseAdminPlugin):
                 queryset = queryset.filter(reduce(operator.or_, or_queries))
             if not use_distinct:
                 for search_spec in orm_lookups:
-                    if lookup_needs_distinct(self.opts, search_spec):
+                    if lookup_spawns_duplicates(self.opts, search_spec):
                         use_distinct = True
                         break
             self.admin_view.search_query = query

@@ -6,8 +6,8 @@ import numpy as np
 import random
 
 from django.shortcuts import render,HttpResponse
-from django.http import HttpResponseRedirect
-from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect, JsonResponse
+from django.urls import reverse
 from django.views.generic.base import View
 
 from microgrids.models import WebMicrogrid,DevControl,EnvAddressC,Img,PVDigitalQuantityData,PVAnalogQuantityData1,PVAnalogQuantityData2,BattatyProperty
@@ -66,7 +66,7 @@ class DeviceManageView(View):
 
         # 中间模型展示栏
         # 中间栏所需图片
-        big_power_grid_picture = Img.objects.get(name_h='大电网')
+        big_power_grid_picture = Img.objects.get(name_h='Big_Microgrid')
         pvI_picture = Img.objects.get(name_h='光伏逆变器')
         pv_picture = Img.objects.get(name_h='光伏阵列')
         BI_picture = Img.objects.get(name_h='蓄电池逆变器')
@@ -187,7 +187,7 @@ class DeviceManageView(View):
         # 负载区
         load_model = []
         # 获取负载的所有控制子区
-        las =  WebMicrogrid.objects.order_by('num').filter(area_type=message[6][0],type=1).values_list('num')
+        las = WebMicrogrid.objects.order_by('num').filter(area_type=message[6][0],type=1).values_list('num')
         for la in las:
             # 创建2级即子区保存数组
             l_2 = []
@@ -594,10 +594,18 @@ class PsoView(View):
     def get(self, request):
         nav = 4
 
-        microgrid_max = request.GET.get("microgrid_max",300)
-        microgrid_min = request.GET.get("microgrid_min",-300)
-        battary_output = request.GET.get("battary_output",400)
-        battary_input = request.GET.get("battary_input",400)
+        # 将 GET 请求中的参数从字符串转换为浮点数
+        try:
+            microgrid_max = float(request.GET.get("microgrid_max", 300))
+            microgrid_min = float(request.GET.get("microgrid_min", -300))
+            battary_output = float(request.GET.get("battary_output", 400))
+            battary_input = float(request.GET.get("battary_input", 400))
+            print(
+                f"microgrid_max: {microgrid_max}, microgrid_min: {microgrid_min}, battary_output: {battary_output}, battary_input: {battary_input}")
+
+        except ValueError:
+            # 如果用户输入的值无法转换为数值类型，返回错误信息
+            return JsonResponse({'error': 'Invalid input, please provide numerical values.'}, status=400)
 
         # 粒子群优化算法
         # 预测24小时光伏、负载，电价

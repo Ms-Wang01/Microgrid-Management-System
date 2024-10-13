@@ -6,9 +6,9 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.template.response import TemplateResponse
 from django.utils import six
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext as _, ungettext
+from django.utils.translation import gettext as _, ngettext
 from django.utils.text import capfirst
 
 from django.contrib.admin.utils import get_deleted_objects
@@ -25,7 +25,7 @@ checkbox = forms.CheckboxInput({'class': 'action-select'}, lambda value: False)
 
 
 def action_checkbox(obj):
-    return checkbox.render(ACTION_CHECKBOX_NAME, force_text(obj.pk))
+    return checkbox.render(ACTION_CHECKBOX_NAME, force_str(obj.pk))
 action_checkbox.short_description = mark_safe(
     '<input type="checkbox" id="action-toggle" />')
 action_checkbox.allow_tags = True
@@ -103,9 +103,9 @@ class DeleteSelectedAction(BaseActionView):
             return None
 
         if len(queryset) == 1:
-            objects_name = force_text(self.opts.verbose_name)
+            objects_name = force_str(self.opts.verbose_name)
         else:
-            objects_name = force_text(self.opts.verbose_name_plural)
+            objects_name = force_str(self.opts.verbose_name_plural)
 
         if perms_needed or protected:
             title = _("Cannot delete %(name)s") % {"name": objects_name}
@@ -156,7 +156,7 @@ class ActionPlugin(BaseAdminPlugin):
     def get_context(self, context):
         if self.actions and self.admin_view.result_count:
             av = self.admin_view
-            selection_note_all = ungettext('%(total_count)s selected',
+            selection_note_all = ngettext('%(total_count)s selected',
                                            'All %(total_count)s selected', av.result_count)
 
             new_context = {

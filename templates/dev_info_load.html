@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
-{% load staticfiles %}
-{% block title %}负载信息{% endblock %}
+{% load static %}
+{% block title %}Load Information{% endblock %}
 {% block custom_css %}
 <link href="{% static 'css/mic.css' %}" rel="stylesheet" type="text/css">
 {% endblock %}
@@ -10,15 +10,15 @@
     <div class="container-fluid">
         <!-- 属性信息 -->
         <div class="dev_info-box1">
-            <div style="text-align: center;color: white;background-color: lightskyblue;height: 40px;margin-bottom: 10px;"><h4 style="line-height: 40px;margin-top: 0px">属性信息</h4></div>
+            <div style="text-align: center;color: white;background-color: lightskyblue;height: 40px;margin-bottom: 10px;"><h4 style="line-height: 40px;margin-top: 0px">Attribute Information</h4></div>
         </div>
         <!-- 状态信息 -->
         <div class="dev_info-box2">
-            <div style="text-align: center;color: white;background-color: lightskyblue;height: 40px;margin-bottom: 10px;"><h4 style="line-height: 40px;margin-top: 0px">状态信息</h4></div>
+            <div style="text-align: center;color: white;background-color: lightskyblue;height: 40px;margin-bottom: 10px;"><h4 style="line-height: 40px;margin-top: 0px">Status Information</h4></div>
             <div class="col-sm-12">
-                <label class="control-label col-sm-3">有功功率：</label>
+                <label class="control-label col-sm-3">active power:</label>
                 <label class="control-label col-sm-3"></label>
-                <label class="control-label col-sm-3">无功功率：</label>
+                <label class="control-label col-sm-3">negative power:</label>
                 <label class="control-label col-sm-3"></label>
             </div>
         </div>

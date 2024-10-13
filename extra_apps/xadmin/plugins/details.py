@@ -1,7 +1,5 @@
-
-
-from django.utils.translation import ugettext as _
-from django.core.urlresolvers import reverse, NoReverseMatch
+from django.utils.translation import gettext as _
+from django.urls import reverse, NoReverseMatch
 from django.db import models
 
 from xadmin.sites import site
@@ -16,7 +14,7 @@ class DetailsPlugin(BaseAdminPlugin):
     def result_item(self, item, obj, field_name, row):
         if (self.show_all_rel_details or (field_name in self.show_detail_fields)):
             rel_obj = None
-            if hasattr(item.field, 'rel') and isinstance(item.field.rel, models.ManyToOneRel):
+            if hasattr(item.field, 'rel') and isinstance(item.field.remote_field, models.ManyToOneRel):
                 rel_obj = getattr(obj, field_name)
             elif field_name in self.show_detail_fields:
                 rel_obj = obj

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-{% load staticfiles %}
-<html lang="en">
+{% load static %}
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}微电网能量管理系统{% endblock %}</title>
+    <title>{% block title %}Microgrid Energy Management System{% endblock %}</title>
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
     {% block custom_css %}{% endblock %}
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
@@ -15,7 +15,7 @@
     <header class="navbar navbar-inverse" style="margin-bottom: 0;">
         <div class="container">
             <div class="navbar-header">
-                <a class="navbar-brand" style="color: whitesmoke" href="#">微电网能量管理系统</a>
+                <a class="navbar-brand" style="color: whitesmoke" href="#">Microgrid Energy Management System</a>
             </div>
             <ul class="nav navbar-nav">
                 <li>
@@ -30,9 +30,9 @@
                 </li>
                 <li>
                     {% if request.user.is_authenticated %}<!-- 判断用户处于登录状态 -->
-                        <a href="{% url 'logout' %}">登出</a>
+                        <a href="{% url 'logout' %}">Logout</a>
                     {% else %}
-                        <a href="{% url 'login' %}">游客请登录</a>
+                        <a href="{% url 'login' %}">Visitors please login</a>
                     {% endif %}
                 </li>
             </ul>
@@ -42,24 +42,24 @@
         <!-- 导航二级 -->
         <nav class="nav" style="margin-bottom: 30px">
             <div class="container" style="box-shadow: 0px 0px 10px #6bef15;">
-            <div class="col-sm-4"></div>
-            <ul class="nav nav-pills col-sm-4">
+            <div class="col-sm-2"></div>
+            <ul class="nav nav-pills col-sm-8" style="display: flex; justify-content: space-around;">
                 <li {% if nav == 1 %}class="active"{% endif %}>
-                    <a href="{% url 'overview' %}">电站总览</a>
+                    <a href="{% url 'overview' %}">Power Station Overview</a>
                 </li>
                 <li {% if nav == 2 %}class="active"{% endif %}>
-                    <a href="{% url 'device' %}">设备管理</a>
+                    <a href="{% url 'device' %}">Devices Management</a>
                 </li>
+{#                <li {% if nav == 3 %}class="active"{% endif %}>#}
+{#                    <a href="#">Alarm Management</a>#}
+{#                </li>#}
                 <li {% if nav == 3 %}class="active"{% endif %}>
-                    <a href="#">报警管理</a>
-                </li>
-                <li {% if nav == 4 %}class="active"{% endif %}>
-                    <a href="{% url 'pso' %}">优化管理</a>
+                    <a href="{% url 'pso' %}">Optimize Management</a>
                 </li>
             </ul>
             <ul class="nav nav-pills navbar-right col-sm-2">
                 <li>
-                    <a href="/xadmin/">后台管理</a>
+                    <a href="/xadmin/">Back-End Management</a>
                 </li>
             </ul>
             </div>
@@ -70,8 +70,8 @@
     {% endblock %}
 <footer style="margin-top: 40px;background-color: black">
     <div class="container">
-        <h5 align="center" style="color: whitesmoke"><span class="glyphicon glyphicon-certificate"></span>&nbsp;微电网管理系统</h5>
-        <h6 align="center" style="color: whitesmoke"><a href="https://www.jdcloud.com/index" style="color: whitesmoke">京东云</a>提供云计算服务</h6>
+        <h5 align="center" style="color: whitesmoke"><span class="glyphicon glyphicon-certificate"></span>&nbsp;Microgrid Energy Management System</h5>
+{#        <h6 align="center" style="color: whitesmoke"><a href="https://www.jdcloud.com/index" style="color: whitesmoke">JD Cloud</a>Provide cloud computing services</h6>#}
     </div>
 </footer>
 </body>

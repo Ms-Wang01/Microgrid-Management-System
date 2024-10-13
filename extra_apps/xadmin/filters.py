@@ -1,8 +1,8 @@
 from __future__ import absolute_import
 from django.db import models
 from django.core.exceptions import ImproperlyConfigured
-from django.utils.encoding import smart_text
-from django.utils.translation import ugettext_lazy as _
+from django.utils.encoding import smart_str
+from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 from django.template.loader import get_template
 from django.template.context import Context
@@ -208,7 +208,7 @@ class ChoicesFieldListFilter(ListFieldFilter):
         }
         for lookup, title in self.field.flatchoices:
             yield {
-                'selected': smart_text(lookup) == self.lookup_exact_val,
+                'selected': smart_str(lookup) == self.lookup_exact_val,
                 'query_string': self.query_string({self.lookup_exact_name: lookup}),
                 'display': title,
             }
@@ -339,8 +339,8 @@ class RelatedFieldSearchFilter(FieldFilter):
 
     def __init__(self, field, request, params, model, model_admin, field_path):
         other_model = get_model_from_relation(field)
-        if hasattr(field, 'rel'):
-            rel_name = field.rel.get_related_field().name
+        if hasattr(field, 'remote_field'):
+            rel_name = field.remote_field.get_related_field().name
         else:
             rel_name = other_model._meta.pk.name
 
@@ -360,9 +360,9 @@ class RelatedFieldSearchFilter(FieldFilter):
             other_model._meta.app_label, other_model._meta.model_name))
         self.label = self.label_for_value(other_model, rel_name, self.lookup_exact_val) if self.lookup_exact_val else ""
         self.choices = '?'
-        if field.rel.limit_choices_to:
-            for i in list(field.rel.limit_choices_to):
-                self.choices += "&_p_%s=%s" % (i, field.rel.limit_choices_to[i])
+        if field.remote_field.limit_choices_to:
+            for i in list(field.remote_field.limit_choices_to):
+                self.choices += "&_p_%s=%s" % (i, field.remote_field.limit_choices_to[i])
             self.choices = format_html(self.choices)
 
     def label_for_value(self, other_model, rel_name, value):
@@ -390,8 +390,8 @@ class RelatedFieldListFilter(ListFieldFilter):
 
     def __init__(self, field, request, params, model, model_admin, field_path):
         other_model = get_model_from_relation(field)
-        if hasattr(field, 'rel'):
-            rel_name = field.rel.get_related_field().name
+        if hasattr(field, 'remote_field'):
+            rel_name = field.remote_field.get_related_field().name
         else:
             rel_name = other_model._meta.pk.name
 
@@ -428,7 +428,7 @@ class RelatedFieldListFilter(ListFieldFilter):
         }
         for pk_val, val in self.lookup_choices:
             yield {
-                'selected': self.lookup_exact_val == smart_text(pk_val),
+                'selected': self.lookup_exact_val == smart_str(pk_val),
                 'query_string': self.query_string({
                     self.lookup_exact_name: pk_val,
                 }, [self.lookup_isnull_name]),
@@ -514,7 +514,7 @@ class MultiSelectFieldListFilter(ListFieldFilter):
         }
         for val in self.lookup_choices:
             yield {
-                'selected': smart_text(val) in self.lookup_in_val,
+                'selected': smart_str(val) in self.lookup_in_val,
                 'query_string': self.query_string({self.lookup_in_name: ",".join([val]+self.lookup_in_val),}),
                 'remove_query_string': self.query_string({self.lookup_in_name: ",".join([v for v in self.lookup_in_val if v != val]),}),
                 'display': val,
@@ -555,7 +555,7 @@ class AllValuesFieldListFilter(ListFieldFilter):
             if val is None:
                 include_none = True
                 continue
-            val = smart_text(val)
+            val = smart_str(val)
             yield {
                 'selected': self.lookup_exact_val == val,
                 'query_string': self.query_string({self.lookup_exact_name: val},

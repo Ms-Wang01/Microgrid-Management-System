@@ -1,7 +1,7 @@
 from django.db import models
 from django import forms
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from django.forms.models import modelform_factory
 import copy
 from xadmin.sites import site
@@ -13,7 +13,8 @@ from xadmin.layout import Layout
 class QuickFormPlugin(BaseAdminPlugin):
 
     def init_request(self, *args, **kwargs):
-        if self.request.method == 'GET' and self.request.is_ajax() or self.request.GET.get('_ajax'):
+        if self.request.method == 'GET' and (self.request.headers.get('x-requested-with') == 'XMLHttpRequest' or
+        "_ajax" in self.request.GET):
             self.admin_view.add_form_template = 'xadmin/views/quick_form.html'
             self.admin_view.change_form_template = 'xadmin/views/quick_form.html'
             return True
@@ -103,7 +104,7 @@ class QuickAddBtnPlugin(BaseAdminPlugin):
             if rel_model in self.admin_site._registry and self.has_model_perm(rel_model, 'add'):
                 add_url = self.get_model_url(rel_model, 'add')
                 formfield.widget = RelatedFieldWidgetWrapper(
-                    formfield.widget, db_field.rel, add_url, self.get_model_url(self.model, 'add'))
+                    formfield.widget, db_field.remote_field, add_url, self.get_model_url(self.model, 'add'))
         return formfield
 
 site.register_plugin(QuickFormPlugin, ModelFormAdminView)

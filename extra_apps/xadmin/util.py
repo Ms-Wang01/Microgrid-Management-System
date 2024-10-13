@@ -4,14 +4,14 @@ from django.db import models
 from django.db.models.sql.query import LOOKUP_SEP
 from django.db.models.deletion import Collector
 from django.db.models.fields.related import ForeignObjectRel
-from django.forms.forms import pretty_name
+from django.forms.utils import pretty_name
 from django.utils import formats, six
 from django.utils.html import escape
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
-from django.utils.encoding import force_text, smart_text, smart_str
-from django.utils.translation import ungettext
-from django.core.urlresolvers import reverse
+from django.utils.encoding import force_str, smart_str
+from django.utils.translation import ngettext
+from django.urls import reverse
 from django.conf import settings
 from django.forms import Media
 from django.utils.translation import get_language
@@ -19,9 +19,11 @@ from django.contrib.admin.utils import label_for_field, help_text_for_field
 from django import VERSION as version
 import datetime
 import decimal
+from django import forms
+from django.core.exceptions import FieldDoesNotExist
 
 if 'django.contrib.staticfiles' in settings.INSTALLED_APPS:
-    from django.contrib.staticfiles.templatetags.staticfiles import static
+    from django.templatetags.static import static
 else:
     from django.templatetags.static import static
 
@@ -48,7 +50,7 @@ def xstatic(*tags):
     fs = []
     lang = get_language()
 
-    cls_str = str if six.PY3 else basestring
+    cls_str = six.string_types
     for tag in tags:
         try:
             for p in tag.split('.'):
@@ -89,9 +91,9 @@ def vendor(*tags):
         file_type = tag.split('.')[-1]
         files = xstatic(tag)
         if file_type == 'js':
-            media.add_js(files)
+            media = media + forms.Media(js=files)
         elif file_type == 'css':
-            media.add_css({'screen': files})
+            media = media + forms.Media(css={'all': files})
     return media
 
 
@@ -101,8 +103,8 @@ def lookup_needs_distinct(opts, lookup_path):
     """
     field_name = lookup_path.split('__', 1)[0]
     field = opts.get_field(field_name)
-    if ((hasattr(field, 'rel') and
-         isinstance(field.rel, models.ManyToManyRel)) or
+    if ((hasattr(field, 'remote_field') and
+         isinstance(field.remote_field, models.ManyToManyRel)) or
         (is_related_field(field) and
          not field.field.unique)):
         return True
@@ -132,7 +134,7 @@ def quote(s):
     quoting is slightly different so that it doesn't get automatically
     unquoted by the Web browser.
     """
-    cls_str = str if six.PY3 else basestring
+    cls_str = six.string_types
     if not isinstance(s, cls_str):
         return s
     res = list(s)
@@ -147,7 +149,7 @@ def unquote(s):
     """
     Undo the effects of quote(). Based heavily on urllib.unquote().
     """
-    cls_str = str if six.PY3 else basestring
+    cls_str = six.string_types
     if not isinstance(s, cls_str):
         return s
     mychr = chr
@@ -247,8 +249,8 @@ def model_format_dict(obj):
     else:
         opts = obj
     return {
-        'verbose_name': force_text(opts.verbose_name),
-        'verbose_name_plural': force_text(opts.verbose_name_plural)
+        'verbose_name': force_str(opts.verbose_name),
+        'verbose_name_plural': force_str(opts.verbose_name_plural)
     }
 
 
@@ -268,7 +270,7 @@ def model_ngettext(obj, n=None):
         obj = obj.model
     d = model_format_dict(obj)
     singular, plural = d["verbose_name"], d["verbose_name_plural"]
-    return ungettext(singular, plural, n or 0)
+    return ngettext(singular, plural, n or 0)
 
 
 def is_rel_field(name, model):
@@ -283,7 +285,7 @@ def lookup_field(name, obj, model_admin=None):
     opts = obj._meta
     try:
         f = opts.get_field(name)
-    except models.FieldDoesNotExist:
+    except FieldDoesNotExist:
         # For non-field values, the value is either a method, property or
         # returned via a callable.
         if callable(name):
@@ -343,10 +345,10 @@ def display_for_field(value, field):
         return formats.number_format(value, field.decimal_places)
     elif isinstance(field, models.FloatField):
         return formats.number_format(value)
-    elif isinstance(field.rel, models.ManyToManyRel):
-        return ', '.join([smart_text(obj) for obj in value.all()])
+    elif isinstance(field.remote_field, models.ManyToManyRel):
+        return ', '.join([smart_str(obj) for obj in value.all()])
     else:
-        return smart_text(value)
+        return smart_str(value)
 
 
 def display_for_value(value, boolean=False):
@@ -363,7 +365,7 @@ def display_for_value(value, boolean=False):
     elif isinstance(value, (decimal.Decimal, float)):
         return formats.number_format(value)
     else:
-        return smart_text(value)
+        return smart_str(value)
 
 
 class NotRelationField(Exception):
@@ -371,12 +373,12 @@ class NotRelationField(Exception):
 
 
 def get_model_from_relation(field):
-    if field.related_model:
-        return field.related_model
+    if field.remote_fieldated_model:
+        return field.remote_fieldated_model
     elif is_related_field(field):
         return field.model
     elif getattr(field, 'rel'):  # or isinstance?
-        return field.rel.to
+        return field.remote_field.to
     else:
         raise NotRelationField
 
@@ -403,8 +405,8 @@ def reverse_field_path(model, path):
             except NotRelationField:
                 break
         if direct:
-            related_name = field.related_query_name()
-            parent = field.rel.to
+            related_name = field.remote_fieldated_query_name()
+            parent = field.remote_field.to
         else:
             related_name = field.field.name
             parent = field.model
@@ -482,4 +484,4 @@ def is_related_field(field):
 
 
 def is_related_field2(field):
-    return (hasattr(field, 'rel') and field.rel != None) or is_related_field(field)
+    return (hasattr(field, 'remote_field') and field.remote_field != None) or is_related_field(field)

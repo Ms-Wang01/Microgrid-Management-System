@@ -169,9 +169,9 @@ class AdminSite(object):
         """
         from django.contrib.contenttypes.models import ContentType
 
-        if not ContentType._meta.installed:
-            raise ImproperlyConfigured("Put 'django.contrib.contenttypes' in "
-                                       "your INSTALLED_APPS setting in order to use the admin application.")
+        # if not ContentType._meta.installed:
+        #     raise ImproperlyConfigured("Put 'django.contrib.contenttypes' in "
+        #                                "your INSTALLED_APPS setting in order to use the admin application.")
 
         default_template_engine = Engine.get_default()
         if not ('django.contrib.auth.context_processors.auth' in default_template_engine.context_processors or
@@ -289,7 +289,7 @@ class AdminSite(object):
         return self.get_view_class(admin_view_class, option_class).as_view()
 
     def get_urls(self):
-        from django.conf.urls import url, include
+        from django.urls import include, re_path
         from xadmin.views.base import BaseAdminView
 
         if settings.DEBUG:
@@ -302,14 +302,14 @@ class AdminSite(object):
 
         # Admin-site-wide views.
         urlpatterns = [
-            url(r'^jsi18n/$', wrap(self.i18n_javascript, cacheable=True), name='jsi18n')
+            re_path(r'^jsi18n/$', wrap(self.i18n_javascript, cacheable=True), name='jsi18n')
         ]
 
         # Registed admin views
         # inspect[isclass]: Only checks if the object is a class. With it lets you create an custom view that
         # inherits from multiple views and have more of a metaclass.
         urlpatterns += [
-            url(
+            re_path(
                 path,
                 wrap(self.create_admin_view(clz_or_func))
                 if inspect.isclass(clz_or_func) and issubclass(clz_or_func, BaseAdminView)
@@ -322,7 +322,7 @@ class AdminSite(object):
         # Add in each model's views.
         for model, admin_class in iteritems(self._registry):
             view_urls = [
-                url(
+                re_path(
                     path,
                     wrap(self.create_model_admin_view(clz, model, admin_class)),
                     name=name % (model._meta.app_label, model._meta.model_name)
@@ -330,7 +330,7 @@ class AdminSite(object):
                 for path, clz, name in self._registry_modelviews
             ]
             urlpatterns += [
-                url(r'^%s/%s/' % (model._meta.app_label, model._meta.model_name), include(view_urls))
+                re_path(r'^%s/%s/' % (model._meta.app_label, model._meta.model_name), include(view_urls))
             ]
         return urlpatterns
 

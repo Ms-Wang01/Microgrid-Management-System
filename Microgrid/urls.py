@@ -13,7 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.urls import re_path as url
 import xadmin
 from Microgrid.settings import MEDIA_ROOT
 from django.views.static import serve
@@ -21,6 +21,8 @@ from django.contrib.auth.decorators import login_required
 
 from users.views import LoginView, LogoutView
 from microgrids.views import OverviewView,DeviceManageView,DeviceAddView,DeviceDelView,DeviceAskView,DeviceInfoView,BattaryPropertyView,PsoView
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^$', LoginView.as_view()),
@@ -45,3 +47,6 @@ urlpatterns = [
     url(r'^media/(?P<path>.*)$', serve, {"document_root": MEDIA_ROOT}),
     url(r'^xadmin/', xadmin.site.urls)
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

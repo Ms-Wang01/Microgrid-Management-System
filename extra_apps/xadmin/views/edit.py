@@ -4,17 +4,17 @@ import copy
 from crispy_forms.utils import TEMPLATE_PACK
 from django import forms
 from django.contrib.contenttypes.models import ContentType
-from django.core.exceptions import PermissionDenied, FieldError
+from django.core.exceptions import PermissionDenied, FieldError, FieldDoesNotExist
 from django.db import models, transaction
 from django.forms.models import modelform_factory, modelform_defines_fields
 from django.http import Http404, HttpResponseRedirect
 from django.template.response import TemplateResponse
 from django.utils import six
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 from django.utils.html import escape
 from django.utils.text import capfirst, get_text_list
 from django.template import loader
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from xadmin import widgets
 from xadmin.layout import FormHelper, Layout, Fieldset, TabHolder, Container, Column, Col, Field
 from xadmin.util import unquote
@@ -87,7 +87,7 @@ class ModelFormAdminView(ModelAdminView):
     def formfield_for_dbfield(self, db_field, **kwargs):
         # If it uses an intermediary model that isn't auto created, don't show
         # a field in admin.
-        if isinstance(db_field, models.ManyToManyField) and not db_field.rel.through._meta.auto_created:
+        if isinstance(db_field, models.ManyToManyField) and not db_field.remote_field.through._meta.auto_created:
             return None
 
         attrs = self.get_field_attrs(db_field, **kwargs)
@@ -118,8 +118,8 @@ class ModelFormAdminView(ModelAdminView):
             if attrs:
                 return attrs
 
-        if hasattr(db_field, "rel") and db_field.rel:
-            related_modeladmin = self.admin_site._registry.get(db_field.rel.to)
+        if hasattr(db_field, "rel") and db_field.remote_field:
+            related_modeladmin = self.admin_site._registry.get(db_field.remote_field.to)
             if related_modeladmin and hasattr(related_modeladmin, 'relfield_style'):
                 attrs = self.get_field_style(
                     db_field, related_modeladmin.relfield_style, **kwargs)
@@ -292,7 +292,7 @@ class ModelFormAdminView(ModelAdminView):
             self.save_models()
             self.save_related()
             response = self.post_response()
-            cls_str = str if six.PY3 else basestring
+            cls_str = six.string_types
             if isinstance(response, cls_str):
                 return HttpResponseRedirect(response)
             else:
@@ -379,7 +379,7 @@ class CreateAdminView(ModelFormAdminView):
             for k in initial:
                 try:
                     f = self.opts.get_field(k)
-                except models.FieldDoesNotExist:
+                except FieldDoesNotExist:
                     continue
                 if isinstance(f, models.ManyToManyField):
                     initial[k] = initial[k].split(",")
@@ -390,7 +390,7 @@ class CreateAdminView(ModelFormAdminView):
     @filter_hook
     def get_context(self):
         new_context = {
-            'title': _('Add %s') % force_text(self.opts.verbose_name),
+            'title': _('Add %s') % force_str(self.opts.verbose_name),
         }
         context = super(CreateAdminView, self).get_context()
         context.update(new_context)
@@ -399,7 +399,7 @@ class CreateAdminView(ModelFormAdminView):
     @filter_hook
     def get_breadcrumb(self):
         bcs = super(ModelFormAdminView, self).get_breadcrumb()
-        item = {'title': _('Add %s') % force_text(self.opts.verbose_name)}
+        item = {'title': _('Add %s') % force_str(self.opts.verbose_name)}
         if self.has_add_permission():
             item['url'] = self.model_admin_url('add')
         bcs.append(item)
@@ -423,8 +423,8 @@ class CreateAdminView(ModelFormAdminView):
         request = self.request
 
         msg = _(
-            'The %(name)s "%(obj)s" was added successfully.') % {'name': force_text(self.opts.verbose_name),
-                                                                 'obj': "<a class='alert-link' href='%s'>%s</a>" % (self.model_admin_url('change', self.new_obj._get_pk_val()), force_text(self.new_obj))}
+            'The %(name)s "%(obj)s" was added successfully.') % {'name': force_str(self.opts.verbose_name),
+                                                                 'obj': "<a class='alert-link' href='%s'>%s</a>" % (self.model_admin_url('change', self.new_obj._get_pk_val()), force_str(self.new_obj))}
 
         if "_continue" in request.POST:
             self.message_user(
@@ -432,7 +432,7 @@ class CreateAdminView(ModelFormAdminView):
             return self.model_admin_url('change', self.new_obj._get_pk_val())
 
         if "_addanother" in request.POST:
-            self.message_user(msg + ' ' + (_("You may add another %s below.") % force_text(self.opts.verbose_name)), 'success')
+            self.message_user(msg + ' ' + (_("You may add another %s below.") % force_str(self.opts.verbose_name)), 'success')
             return request.path
         else:
             self.message_user(msg, 'success')
@@ -458,7 +458,7 @@ class UpdateAdminView(ModelFormAdminView):
 
         if self.org_obj is None:
             raise Http404(_('%(name)s object with primary key %(key)r does not exist.') %
-                          {'name': force_text(self.opts.verbose_name), 'key': escape(object_id)})
+                          {'name': force_str(self.opts.verbose_name), 'key': escape(object_id)})
 
         # comm method for both get and post
         self.prepare_form()
@@ -474,7 +474,7 @@ class UpdateAdminView(ModelFormAdminView):
     @filter_hook
     def get_context(self):
         new_context = {
-            'title': _('Change %s') % force_text(self.org_obj),
+            'title': _('Change %s') % force_str(self.org_obj),
             'object_id': str(self.org_obj.pk),
         }
         context = super(UpdateAdminView, self).get_context()
@@ -485,7 +485,7 @@ class UpdateAdminView(ModelFormAdminView):
     def get_breadcrumb(self):
         bcs = super(ModelFormAdminView, self).get_breadcrumb()
 
-        item = {'title': force_text(self.org_obj)}
+        item = {'title': force_str(self.org_obj)}
         if self.has_change_permission():
             item['url'] = self.model_admin_url('change', self.org_obj.pk)
         bcs.append(item)
@@ -520,14 +520,14 @@ class UpdateAdminView(ModelFormAdminView):
         pk_value = obj._get_pk_val()
 
         msg = _('The %(name)s "%(obj)s" was changed successfully.') % {'name':
-                                                                       force_text(verbose_name), 'obj': force_text(obj)}
+                                                                       force_str(verbose_name), 'obj': force_str(obj)}
         if "_continue" in request.POST:
             self.message_user(
                 msg + ' ' + _("You may edit it again below."), 'success')
             return request.path
         elif "_addanother" in request.POST:
             self.message_user(msg + ' ' + (_("You may add another %s below.")
-                              % force_text(verbose_name)), 'success')
+                              % force_str(verbose_name)), 'success')
             return self.model_admin_url('add')
         else:
             self.message_user(msg, 'success')

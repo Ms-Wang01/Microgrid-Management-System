@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
-{% load staticfiles %}
-{% block title %}设备管理{% endblock %}
+{% load static %}
+{% block title %}Device Management{% endblock %}
 {% block custom_css %}
 <link href="{% static 'css/mic.css' %}" rel="stylesheet" type="text/css">
 {% endblock %}
@@ -12,7 +12,7 @@
                 <div class="panel-group">
                     <div class="panel">
                         <div class="panel-heading" >
-                            <a class="list-group-item list-group-item-info" data-toggle="collapse" href="#collapse" style="font-weight: bold">电站管理</a>
+                            <a class="list-group-item list-group-item-info" data-toggle="collapse" href="#collapse" style="font-weight: bold">Power Station Management</a>
                         </div>
                         <div id="collapse" class="panel-collapse collapse in">
                             {% for area_a in message_left %}
@@ -63,16 +63,16 @@
                 <div style="text-align: center;color: white;background-color: lawngreen;height: 40px;margin-bottom: 10px;"><h4 style="line-height: 40px;margin-top: 0px">微电网管理模型</h4></div>
                 <div style="text-align: center; margin-bottom: 10px">
                     <img src="{{ big_power_grid_picture.img.url }}" style="width: 150px;height: 100px">
-                    <h6>大电网</h6>
+                    <h6>Big_Microgrid</h6>
                     <div style="text-align: center;">
                         {% for pcca in pcc_model %}
                             <div style="text-align: center;margin-left: 20px">
                                 {% if pcca.1 != '' %}
                                     <a href="{% url 'device' %}?ask_dev={{ pcca.1 }}" style="text-decoration: none;">
                                         {% if pcca.2 == 1 %}
-                                            <img src="{{ CA_Open_picture.img.url }}" style="width: 30px;height: 30px">
+                                            <img src="{{ 控制区_闭合.img.url }}" style="width: 30px;height: 30px">
                                         {% else %}
-                                            <img src="{{ CA_Close_picture.img.url }}" style="width: 30px;height: 30px">
+                                            <img src="{{ 控制区_断开.img.url }}" style="width: 30px;height: 30px">
                                         {% endif %}
                                         <p>{{ pcca.1 }}</p>
                                     </a>
@@ -98,9 +98,9 @@
                                 {% if pva.1 != '' %}
                                     <a href="{% url 'device' %}?ask_dev={{ pva.1 }}" style="text-decoration: none">
                                         {% if pva.2 == 1 %}
-                                            <img src="{{ CA_Open_picture.img.url }}" style="width: 30px;height: 30px">
+                                            <img src="{{ 控制区_闭合.img.url }}" style="width: 30px;height: 30px">
                                         {% else %}
-                                            <img src="{{ CA_Close_picture.img.url }}" style="width: 30px;height: 30px">
+                                            <img src="{{ 控制区_断开.img.url }}" style="width: 30px;height: 30px">
                                         {% endif %}
                                         <p>{{ pva.1 }}</p>
                                     </a>
@@ -114,9 +114,9 @@
                                             {% if pvI.0 != '' %}
                                                 <a href="{% url 'device' %}?ask_dev={{ pvI.0 }}" style="text-decoration: none">
                                                     {% if pvI.2 == 1 %}
-                                                        <img src="{{ CA_Open_picture.img.url }}" style="width: 30px;height: 30px">
+                                                        <img src="{{ 控制区_闭合.img.url }}" style="width: 30px;height: 30px">
                                                     {% else %}
-                                                        <img src="{{ CA_Close_picture.img.url }}" style="width: 30px;height: 30px">
+                                                        <img src="{{ 控制区_断开.img.url }}" style="width: 30px;height: 30px">
                                                     {% endif %}
                                                     <p >{{ pvI.0 }}</p>
                                                 </a>
@@ -137,9 +137,9 @@
                                                         {% if pv.0 != '' %}
                                                             <a href="{% url 'device' %}?ask_dev={{ pv.0 }}" style="text-decoration: none">
                                                                 {% if pv.2 == 1 %}
-                                                                    <img src="{{ CA_Open_picture.img.url }}" style="width: 30px;height: 30px">
+                                                                    <img src="{{ 控制区_闭合.img.url }}" style="width: 30px;height: 30px">
                                                                 {% else %}
-                                                                    <img src="{{ CA_Close_picture.img.url }}" style="width: 30px;height: 30px">
+                                                                    <img src="{{ 控制区_断开.img.url }}" style="width: 30px;height: 30px">
                                                                 {% endif %}
                                                                 <p >{{ pv.0 }}</p>
                                                             </a>

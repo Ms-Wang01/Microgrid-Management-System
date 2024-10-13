@@ -8,7 +8,7 @@ from django.template import loader
 from django.template.loader import render_to_string
 from django.contrib.auth import get_permission_codename
 from django.utils import six
-from django.utils.encoding import smart_text
+from django.utils.encoding import smart_str
 from crispy_forms.utils import TEMPLATE_PACK
 
 from xadmin.layout import FormHelper, Layout, flatatt, Container, Column, Field, Fieldset
@@ -232,7 +232,7 @@ class InlineModelAdmin(ModelFormAdminView):
                         label = None
                         if readonly_field in inst._meta.get_all_field_names():
                             label = inst._meta.get_field(readonly_field).verbose_name
-                            value = smart_text(getattr(inst, readonly_field))
+                            value = smart_str(getattr(inst, readonly_field))
                         elif inspect.ismethod(getattr(inst, readonly_field, None)):
                             value = getattr(inst, readonly_field)()
                             label = getattr(getattr(inst, readonly_field), 'short_description', readonly_field)
@@ -268,8 +268,8 @@ class InlineModelAdmin(ModelFormAdminView):
         opts = self.opts
         if opts.auto_created:
             for field in opts.fields:
-                if field.rel and field.rel.to != self.parent_model:
-                    opts = field.rel.to._meta
+                if field.remote_field and field.remote_field.to != self.parent_model:
+                    opts = field.remote_field.to._meta
                     break
 
         codename = get_permission_codename('change', opts)

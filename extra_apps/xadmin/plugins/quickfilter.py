@@ -5,7 +5,7 @@ Created on Mar 26, 2014
 '''
 from future.utils import iteritems
 from django.utils import six
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from xadmin.filters import manager,MultiSelectFieldListFilter
 from xadmin.plugins.filters import *
 from xadmin.util import is_related_field
@@ -64,9 +64,9 @@ class QuickFilterPlugin(BaseAdminPlugin):
                 # Lookups on non-existants fields are ok, since they're ignored
                 # later.
                 return True
-            if hasattr(field, 'rel'):
-                model = field.rel.to
-                rel_name = field.rel.get_related_field().name
+            if hasattr(field, 'remote_field'):
+                model = field.remote_field.to
+                rel_name = field.remote_field.get_related_field().name
             elif is_related_field(field):
                 model = field.model
                 rel_name = model._meta.pk.name
