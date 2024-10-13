@@ -31,3 +31,4 @@
 - **控制管理：** 
 > 此区域会在管理模型点击对应设备后自动展示其对应控制相关的部分，可在此修改设备状态或参数（会修改数据库，下发命令给具体设备）。也可点击设备信息具体查看设备相关信息。
 # Microgrid-Management-System
+# Microgrid-Management-System
