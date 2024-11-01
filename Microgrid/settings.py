@@ -90,7 +90,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'microgriddata',
         'USER': 'wbj',
-        'PASSWORD': 'w4zhjiqi',
+        'PASSWORD': 'YOURPassWord',
         'HOST': 'localhost',
         'PORT': '3306',
         'OPTIONS': {'init_command': 'SET default_storage_engine=INNODB;'},
