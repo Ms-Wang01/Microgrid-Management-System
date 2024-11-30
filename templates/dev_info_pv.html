@@ -7,8 +7,12 @@
 {% endblock %}
 {% block custom_js %}
 <script src="{% static 'js/bootstrap-datetimepicker.min.js' %}"></script>
-<script src="{% static 'js/bootstrap-datetimepicker.zh-CN.js' %}"></script>
-<script src="https://cdn.bootcss.com/echarts/3.8.5/echarts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+
+{#<script src="{% static 'js/bootstrap-datetimepicker.zh-CN.js' %}"></script>#}
+{#<script src="https://cdn.bootcss.com/echarts/3.8.5/echarts.js"></script>#}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.0/echarts.min.js"></script>
 {% endblock %}
 {% block content %}
     <div class="container-fluid">
@@ -70,7 +74,8 @@
                         <!-- 日历 -->
                         <script>
                         var picker = $('#p_day').datetimepicker({
-                            language:'zh-CN',
+                            {#language:'zh-CN',#}
+                            language: en-us,
                             format: 'yyyy-mm-dd',
                             autoclose:true,
                             todayBtn:true,

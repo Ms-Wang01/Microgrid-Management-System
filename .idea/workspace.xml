@@ -2,87 +2,45 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f2f3a0a6-ecf4-4c8d-9054-6530fb67b32f" name="Default" comment="蓄电池、负荷数据模型简单建立与页面实现">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/media/img/display.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/Microgrid.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Microgrid.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Microgrid/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Microgrid/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Microgrid/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/Microgrid/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Microgrid/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Microgrid/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/microgrids/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/microgrids/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/microgrids/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/microgrids/migrations/0001_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/microgrids/migrations/0002_auto_20180620_1136.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/microgrids/migrations/0002_auto_20180620_1136.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/microgrids/migrations/0003_auto_20180620_1901.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/microgrids/migrations/0003_auto_20180620_1901.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/microgrids/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/microgrids/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/microgrids/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/microgrids/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/users/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/users/tests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/users/adminx.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/users/adminx.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/users/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/users/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extra_apps/xadmin/adminx.py" beforeDir="false" afterPath="$PROJECT_DIR$/extra_apps/xadmin/adminx.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extra_apps/xadmin/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/extra_apps/xadmin/apps.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extra_apps/xadmin/filters.py" beforeDir="false" afterPath="$PROJECT_DIR$/extra_apps/xadmin/filters.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extra_apps/xadmin/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/extra_apps/xadmin/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extra_apps/xadmin/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/extra_apps/xadmin/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extra_apps/xadmin/plugins/actions.py" beforeDir="false" afterPath="$PROJECT_DIR$/extra_apps/xadmin/plugins/actions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extra_apps/xadmin/plugins/aggregation.py" beforeDir="false" afterPath="$PROJECT_DIR$/extra_apps/xadmin/plugins/aggregation.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/extra_apps/xadmin/plugins/ajax.py" beforeDir="false" afterPath="$PROJECT_DIR$/extra_apps/xadmin/plugins/ajax.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extra_apps/xadmin/plugins/auth.py" beforeDir="false" afterPath="$PROJECT_DIR$/extra_apps/xadmin/plugins/auth.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extra_apps/xadmin/plugins/bookmark.py" beforeDir="false" afterPath="$PROJECT_DIR$/extra_apps/xadmin/plugins/bookmark.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extra_apps/xadmin/plugins/chart.py" beforeDir="false" afterPath="$PROJECT_DIR$/extra_apps/xadmin/plugins/chart.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extra_apps/xadmin/plugins/details.py" beforeDir="false" afterPath="$PROJECT_DIR$/extra_apps/xadmin/plugins/details.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extra_apps/xadmin/plugins/editable.py" beforeDir="false" afterPath="$PROJECT_DIR$/extra_apps/xadmin/plugins/editable.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extra_apps/xadmin/plugins/export.py" beforeDir="false" afterPath="$PROJECT_DIR$/extra_apps/xadmin/plugins/export.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/extra_apps/xadmin/plugins/filters.py" beforeDir="false" afterPath="$PROJECT_DIR$/extra_apps/xadmin/plugins/filters.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extra_apps/xadmin/plugins/images.py" beforeDir="false" afterPath="$PROJECT_DIR$/extra_apps/xadmin/plugins/images.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extra_apps/xadmin/plugins/importexport.py" beforeDir="false" afterPath="$PROJECT_DIR$/extra_apps/xadmin/plugins/importexport.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extra_apps/xadmin/plugins/inline.py" beforeDir="false" afterPath="$PROJECT_DIR$/extra_apps/xadmin/plugins/inline.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extra_apps/xadmin/plugins/language.py" beforeDir="false" afterPath="$PROJECT_DIR$/extra_apps/xadmin/plugins/language.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extra_apps/xadmin/plugins/layout.py" beforeDir="false" afterPath="$PROJECT_DIR$/extra_apps/xadmin/plugins/layout.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extra_apps/xadmin/plugins/multiselect.py" beforeDir="false" afterPath="$PROJECT_DIR$/extra_apps/xadmin/plugins/multiselect.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extra_apps/xadmin/plugins/passwords.py" beforeDir="false" afterPath="$PROJECT_DIR$/extra_apps/xadmin/plugins/passwords.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extra_apps/xadmin/plugins/quickfilter.py" beforeDir="false" afterPath="$PROJECT_DIR$/extra_apps/xadmin/plugins/quickfilter.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/extra_apps/xadmin/plugins/quickform.py" beforeDir="false" afterPath="$PROJECT_DIR$/extra_apps/xadmin/plugins/quickform.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extra_apps/xadmin/plugins/relate.py" beforeDir="false" afterPath="$PROJECT_DIR$/extra_apps/xadmin/plugins/relate.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extra_apps/xadmin/plugins/relfield.py" beforeDir="false" afterPath="$PROJECT_DIR$/extra_apps/xadmin/plugins/relfield.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extra_apps/xadmin/plugins/sortablelist.py" beforeDir="false" afterPath="$PROJECT_DIR$/extra_apps/xadmin/plugins/sortablelist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extra_apps/xadmin/plugins/themes.py" beforeDir="false" afterPath="$PROJECT_DIR$/extra_apps/xadmin/plugins/themes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extra_apps/xadmin/plugins/topnav.py" beforeDir="false" afterPath="$PROJECT_DIR$/extra_apps/xadmin/plugins/topnav.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/extra_apps/xadmin/plugins/wizard.py" beforeDir="false" afterPath="$PROJECT_DIR$/extra_apps/xadmin/plugins/wizard.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extra_apps/xadmin/plugins/xversion.py" beforeDir="false" afterPath="$PROJECT_DIR$/extra_apps/xadmin/plugins/xversion.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/extra_apps/xadmin/sites.py" beforeDir="false" afterPath="$PROJECT_DIR$/extra_apps/xadmin/sites.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extra_apps/xadmin/templates/xadmin/includes/pagination.html" beforeDir="false" afterPath="$PROJECT_DIR$/extra_apps/xadmin/templates/xadmin/includes/pagination.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extra_apps/xadmin/templates/xadmin/views/model_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/extra_apps/xadmin/templates/xadmin/views/model_form.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/extra_apps/xadmin/util.py" beforeDir="false" afterPath="$PROJECT_DIR$/extra_apps/xadmin/util.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extra_apps/xadmin/views/base.py" beforeDir="false" afterPath="$PROJECT_DIR$/extra_apps/xadmin/views/base.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extra_apps/xadmin/views/dashboard.py" beforeDir="false" afterPath="$PROJECT_DIR$/extra_apps/xadmin/views/dashboard.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extra_apps/xadmin/views/delete.py" beforeDir="false" afterPath="$PROJECT_DIR$/extra_apps/xadmin/views/delete.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extra_apps/xadmin/views/detail.py" beforeDir="false" afterPath="$PROJECT_DIR$/extra_apps/xadmin/views/detail.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extra_apps/xadmin/views/edit.py" beforeDir="false" afterPath="$PROJECT_DIR$/extra_apps/xadmin/views/edit.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extra_apps/xadmin/views/form.py" beforeDir="false" afterPath="$PROJECT_DIR$/extra_apps/xadmin/views/form.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extra_apps/xadmin/views/list.py" beforeDir="false" afterPath="$PROJECT_DIR$/extra_apps/xadmin/views/list.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/extra_apps/xadmin/views/website.py" beforeDir="false" afterPath="$PROJECT_DIR$/extra_apps/xadmin/views/website.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extra_apps/xadmin/widgets.py" beforeDir="false" afterPath="$PROJECT_DIR$/extra_apps/xadmin/widgets.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/media/img/power_grid.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/media/img/Big_Microgrid.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dev_add.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dev_add.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/dev_info_battary.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dev_info_battary.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dev_info_load.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dev_info_load.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/dev_info_pv.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dev_info_pv.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/device_manage.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/device_manage.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/login.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/overview.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/overview.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/pso.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/pso.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/widget-v3-frontend/src/containers/DevPlayground/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/widget-v3-frontend/src/containers/DevPlayground/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/widget-v3-server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/widget-v3-server/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/widget-v3-server/src/middlewares/error.ts" beforeDir="false" afterPath="$PROJECT_DIR$/widget-v3-server/src/middlewares/error.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/widget-v3-server/src/modules/shared/weather.ts" beforeDir="false" afterPath="$PROJECT_DIR$/widget-v3-server/src/modules/shared/weather.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/widget-v3-server/src/modules/weather/controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/widget-v3-server/src/modules/weather/controller.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/widget-v3-server/src/modules/widget/controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/widget-v3-server/src/modules/widget/controller.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/widget-v3-server/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/widget-v3-server/tsconfig.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseLocalColorSettings">
+    <option name="in-editor" value="true" />
+    <colors>
+      <entry key="microgriddata/c6c7f691-3788-4983-ab02-369081671fbf:SCHEMA" value="Blue" />
+    </colors>
   </component>
   <component name="DatabaseView">
     <option name="SHOW_INTERMEDIATE" value="true" />
@@ -175,7 +133,6 @@
     <setting file="file://$PROJECT_DIR$/templates/dev_info_load.html" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/templates/device_manage.html" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/templates/pso.html" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/widget-v3-frontend/public/preview.html" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../opt/anaconda3/envs/MicroGrids/lib/python3.8/site-packages/pandas/_testing/_io.py" root0="SKIP_INSPECTION" />
   </component>
   <component name="IdeDocumentHistory">
@@ -231,9 +188,6 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
-  </component>
-  <component name="PackageJsonUpdateNotifier">
-    <dismissed value="$PROJECT_DIR$/package.json" />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="960" />
@@ -300,6 +254,8 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowPanel.toolwindow.highlight.mappings&quot;: &quot;true&quot;,
@@ -312,7 +268,7 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.standard&quot;: &quot;&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.ide.settings.uml&quot;,
     &quot;ts.external.directory.path&quot;: &quot;/Users/wbj/microgrid/widget-v3-server/node_modules/typescript/lib&quot;
   }
 }</component>
@@ -331,9 +287,6 @@
     </key>
   </component>
   <component name="RunManager" selected="Django 服务器.Microgrid">
-    <configuration name="pso.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/microgrid/templates/pso.html" useBuiltInWebServerPort="true">
-      <method v="2" />
-    </configuration>
     <configuration name="hhhhh" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Microgrid" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -348,6 +301,28 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/hhhhh.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="xmind" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Microgrid" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/projectInstruction" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/projectInstruction/xmind.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -387,7 +362,7 @@
         <env name="PYTHONUNBUFFERED" value="1" />
         <env name="DJANGO_SETTINGS_MODULE" value="Microgrid.settings" />
       </envs>
-      <option name="SDK_HOME" value="$PROJECT_DIR$/../opt/anaconda3/envs/MicroGrids/bin/python" />
+      <option name="SDK_HOME" value="$PROJECT_DIR$/../opt/anaconda3/envs/Microgrid-Management-System/bin/python" />
       <option name="WORKING_DIRECTORY" value="" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -436,19 +411,19 @@
     <list>
       <item itemvalue="Django 服务器.未命名" />
       <item itemvalue="Django 服务器.Microgrid" />
-      <item itemvalue="JavaScript 调试.pso.html" />
       <item itemvalue="npm.build" />
       <item itemvalue="npm.init" />
       <item itemvalue="npm.lint" />
+      <item itemvalue="Python.xmind" />
       <item itemvalue="Python.hhhhh" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.xmind" />
         <item itemvalue="Python.hhhhh" />
         <item itemvalue="npm.init" />
         <item itemvalue="npm.lint" />
         <item itemvalue="npm.build" />
-        <item itemvalue="JavaScript 调试.pso.html" />
       </list>
     </recent_temporary>
   </component>
@@ -481,6 +456,14 @@
       <workItem from="1727753398792" duration="248000" />
       <workItem from="1728125403643" duration="9043000" />
       <workItem from="1728798598641" duration="6875000" />
+      <workItem from="1731476144818" duration="15680000" />
+      <workItem from="1731900611197" duration="100000" />
+      <workItem from="1731901063625" duration="607000" />
+      <workItem from="1731914662501" duration="772000" />
+      <workItem from="1731915507926" duration="6055000" />
+      <workItem from="1732005377565" duration="11341000" />
+      <workItem from="1732097704643" duration="3781000" />
+      <workItem from="1732167646355" duration="4256000" />
     </task>
     <task id="LOCAL-00001" summary="图形模型建立">
       <created>1525235614260</created>
@@ -610,6 +593,7 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/microgrid$hhhhh.coverage" NAME="hhhhh 覆盖结果" MODIFIED="1728804203127" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Microgrid_Management_System$xmind.coverage" NAME="xmind 覆盖结果" MODIFIED="1731984837472" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/projectInstruction" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/templates/pv_data.html" />

@@ -10,7 +10,7 @@ from django.http import HttpResponseRedirect, JsonResponse
 from django.urls import reverse
 from django.views.generic.base import View
 
-from microgrids.models import WebMicrogrid,DevControl,EnvAddressC,Img,PVDigitalQuantityData,PVAnalogQuantityData1,PVAnalogQuantityData2,BattatyProperty
+from microgrids.models import WebMicrogrid,DevControl,EnvAddressC,Img,PVDigitalQuantityData,PVAnalogQuantityData1,PVAnalogQuantityData2,BatteryProperty
 
 # Create your views here.
 
@@ -37,10 +37,10 @@ class DeviceManageView(View):
 
         # 左侧微电网设备管理栏
         # 区域信息(目录一级)
-        message = [[0, '间隔区'],[1, '光伏区'],[2, '风力区'],[3,'燃机区'],[4, '电池储能区'],[5, '飞轮储能区'],[6, '负载区'],[7, '控制区'],[8, '环境']]
+        message = [[0, 'Spacer Area'],[1, 'PV Area'],[2, 'Wind Power Area'],[3,'Gas Turbine Area'],[4, 'Battery Energy Storage Area'],[5, 'Flywheel Energy Storage Area'],[6, 'Load Area'],[7, 'Control Area'],[8, 'Environment']]
         # 左侧栏所有信息存储(先存储一级目录信息)
         message_left = message
-        # 获取所有子区域(目录二级)
+        # 获取所有Subarea域(目录二级)
         for area_type_num in message_left:
             area_infos = WebMicrogrid.objects.filter(area_type=area_type_num[0],type=1).order_by('name').values_list('num','name')
             # 一级目录3位置加list存储二级以下信息
@@ -67,16 +67,16 @@ class DeviceManageView(View):
         # 中间模型展示栏
         # 中间栏所需图片
         big_power_grid_picture = Img.objects.get(name_h='Big_Microgrid')
-        pvI_picture = Img.objects.get(name_h='光伏逆变器')
-        pv_picture = Img.objects.get(name_h='光伏阵列')
-        BI_picture = Img.objects.get(name_h='蓄电池逆变器')
-        battery_picture = Img.objects.get(name_h='蓄电池组')
-        CA_Close_picture = Img.objects.get(name_h='控制区_闭合')
-        CA_Open_picture = Img.objects.get(name_h='控制区_断开')
-        load_picture = Img.objects.get(name_h='负荷')
+        pvI_picture = Img.objects.get(name_h='pvI_picture')
+        PV = Img.objects.get(name_h='pv_picture')
+        BI_picture = Img.objects.get(name_h='bi_picture')
+        battery_picture = Img.objects.get(name_h='battery_picture')
+        Control_Area_Closed = Img.objects.get(name_h='Control_Area_Closed')
+        Control_Area_Open = Img.objects.get(name_h='Control_Area_Open')
+        load_picture = Img.objects.get(name='Load')
 
 
-        # 间隔区
+        # Spacer Area
         pcc_model = []
         pccs = WebMicrogrid.objects.order_by('num').filter(area_type=message[0][0], type=1).values_list('num')
         for pcc in pccs:
@@ -105,10 +105,10 @@ class DeviceManageView(View):
 
         # 光伏模型区
         pv_model = []
-        # 获取光伏下的所有控制子区
+        # 获取光伏下的所有控制Subarea
         pas = WebMicrogrid.objects.order_by('num').filter(area_type=message[1][0],type=1).values_list('num')
         for pa in pas:
-            # 创建2级即子区保存数组
+            # 创建2级即Subarea保存数组
             pv_2 = []
             try:
                 # 获取对应控制区
@@ -125,12 +125,12 @@ class DeviceManageView(View):
             except:
                 pac = ''
                 pac_status = ''
-            # 追加子区编号和对应控制区编号和三级总容器
+            # 追加Subarea编号和对应控制区编号和三级总容器
             pv_2.append(pa[0])
             pv_2.append(pac)
             pv_2.append(pac_status)
             pv_2.append([])
-            # 获取子区下的所有逆变器
+            # 获取Subarea下的所有逆变器
             pvIs = WebMicrogrid.objects.order_by('num').filter(parent_area=pa[0]).values_list('num')
             for pvI in pvIs:
                 # 创建保存3级即逆变器数组
@@ -184,12 +184,12 @@ class DeviceManageView(View):
             pv_model.append(pv_2)
         print(pv_model)
 
-        # 负载区
+        # Load Area
         load_model = []
-        # 获取负载的所有控制子区
+        # 获取负载的所有控制Subarea
         las = WebMicrogrid.objects.order_by('num').filter(area_type=message[6][0],type=1).values_list('num')
         for la in las:
-            # 创建2级即子区保存数组
+            # 创建2级即Subarea保存数组
             l_2 = []
             try:
                 # 获取对应控制区
@@ -206,12 +206,12 @@ class DeviceManageView(View):
             except:
                 lac = ''
                 lac_status = ''
-            # 追加子区编号和对应控制区编号和三级总容器
+            # 追加Subarea编号和对应控制区编号和三级总容器
             l_2.append(la[0])
             l_2.append(lac)
             l_2.append(lac_status)
             l_2.append([])
-            # 获取子区下的所有负载
+            # 获取Subarea下的所有负载
             ls = WebMicrogrid.objects.order_by('num').filter(parent_area=la[0]).values_list('num')
             for load in ls:
                 # 创建保存3级即负载数组
@@ -253,9 +253,9 @@ class DeviceManageView(View):
             swcs.append([])
             # 获取对应编号的对象
             control_obj = WebMicrogrid.objects.get(num=ask_dev)
-            # 如果对象为子区
+            # 如果对象为Subarea
             if control_obj.type == 1:
-                # 获取子区对象下所有的控制开关
+                # 获取Subarea对象下所有的控制开关
                 sws = WebMicrogrid.objects.filter(parent_area=control_obj.num).values_list('num')
                 for sw in sws:
                     swc = DevControl.objects.filter(num=sw[0]).values_list('num','switch_status')
@@ -268,6 +268,9 @@ class DeviceManageView(View):
         if ask_dev != '' and dev.area_type in [1,2,3,4,5,6]:
             dev_c = DevControl.objects.get(num=ask_dev)
 
+        print("swcs:", swcs)
+        print("dev_c:", dev_c)
+
         return render(request, 'device_manage.html', {
             'nav':nav,
             # 左侧
@@ -279,11 +282,11 @@ class DeviceManageView(View):
             'load_model':load_model,
             'big_power_grid_picture': big_power_grid_picture,
             'pvI_picture': pvI_picture,
-            'pv_picture': pv_picture,
+            'PV': PV,
             'BI_picture': BI_picture,
             'battery_picture': battery_picture,
-            'CA_Close_picture':CA_Close_picture,
-            'CA_Open_picture':CA_Open_picture,
+            'Control_Area_Closed':Control_Area_Closed,
+            'Control_Area_Open':Control_Area_Open,
             'load_picture':load_picture,
 
             # 右侧栏
@@ -314,20 +317,25 @@ class DeviceInfoView(View):
             time_l = []
             if date == 'day':
                 # 获取对应编号指定日期数据
-                pvI_datas2 = PVAnalogQuantityData2.objects.filter(pv_num=num).filter(timestamp__year=day_l[0],timestamp__month=day_l[1],timestamp__day=day_l[2])
+                pvI_datas2 = PVAnalogQuantityData2.objects.filter(pv_num=num).filter(
+                    timestamp__year=day_l[0], timestamp__month=day_l[1], timestamp__day=day_l[2])
                 pvI_on_grid_p_datas = pvI_datas2.values_list('on_grid_p')
                 for pvI_on_grid_p_data in pvI_on_grid_p_datas:
-                    pvI_on_grid_p_data_l.append(pvI_on_grid_p_data[0])
+                    # 如果 on_grid_p 数据为 None，则使用默认值 0
+                    pvI_on_grid_p_data_l.append(pvI_on_grid_p_data[0] if pvI_on_grid_p_data[0] is not None else 0)
                 times = pvI_datas2.values_list('timestamp')
                 for time in times:
                     time_l.append(time[0].strftime('%H:%M:%S'))
             elif date == 'month':
                 # 获取对应编号日期数据
                 for date_day in range(1, 31):
-                    pvI_on_grid_p_datas = PVAnalogQuantityData2.objects.filter(pv_num=num).filter(timestamp__year=day_l[0],timestamp__month=day_l[1],timestamp__day=date_day).values_list('on_grid_p')
+                    pvI_on_grid_p_datas = PVAnalogQuantityData2.objects.filter(
+                        pv_num=num).filter(timestamp__year=day_l[0], timestamp__month=day_l[1],
+                                           timestamp__day=date_day).values_list('on_grid_p')
                     pvI_on_grid_p_data_day = 0
                     for pvI_on_grid_p_data in pvI_on_grid_p_datas:
-                            pvI_on_grid_p_data_day = pvI_on_grid_p_data_day + pvI_on_grid_p_data[0]
+                        # 如果 on_grid_p 数据为 None，则加上 0
+                        pvI_on_grid_p_data_day += pvI_on_grid_p_data[0] if pvI_on_grid_p_data[0] is not None else 0
                     pvI_on_grid_p_data_l.append(pvI_on_grid_p_data_day)
                     time_l.append(date_day)
                     print(time_l)
@@ -366,16 +374,16 @@ class DeviceInfoView(View):
         if type == '12':
             # 属性信息
             try:
-                battaryproperty = BattatyProperty.objects.get(battary_num=num)
+                batteryproperty = BatteryProperty.objects.get(battery_num=num)
             except:
-                battaryproperty = BattatyProperty()
-                battaryproperty.battary_num = num
-                battaryproperty.save()
+                batteryproperty = BatteryProperty()
+                batteryproperty.battery_num = num
+                batteryproperty.save()
 
             # 电池状态信息
 
-            return render(request, 'dev_info_battary.html', {
-                'battaryproperty': battaryproperty
+            return render(request, 'dev_info_battery.html', {
+                'batteryproperty': batteryproperty
             })
         # 负载
         if type == '30':
@@ -396,10 +404,10 @@ class DeviceAddView(View):
         num = []
         # 创建编号的汉字标注
         num_h = ''
-        # 如果创建子项的为总区域，即创建子区域
+        # 如果创建子项的为总区域，即创建Subarea域
         if pnum == '':
-            num_h = [[0, '间隔子区'], [1, '光伏子区'], [2, '风力子区'], [3, '燃机子区'], [4, '电池储能子区'], [5, '飞轮储能子区'], [6, '负载子区'],[7, '控制子区'], [8, '环境子区']][int(area_a)][1]
-            # 控制区所创建子区会对应产生层或间隔层区域进行控制
+            num_h = [[0, 'Spacer Subarea '], [1, 'PV Subarea '], [2, 'Wind Power Subarea '], [3, 'Gas Turbine Subarea '], [4, 'Battery Energy Storage Subarea '], [5, 'Flywheel Energy Storage Subarea '], [6, 'Load Subarea '],[7, 'Control Subarea '], [8, 'Environment Subarea ']][int(area_a)][1]
+            # 控制区所创建Subarea会对应产生层或间隔层区域进行控制
             if area_a == '7':
                 nums = []
                 # 控制区所包含的num,即已被控制
@@ -564,29 +572,49 @@ class DeviceAskView(View):
         num = request.POST.get('num', '')
         switch_status = request.POST.get('switch_status', '')
         active_power = request.POST.get('active_power', 0)
+        try:
+            active_power = float(active_power) if active_power.strip() else 0.0
+        except ValueError:
+            active_power = 0.0  # 如果转换失败，设置为默认值
         reactive_power = request.POST.get('reactive_power', 0)
+        try:
+            reactive_power = float(reactive_power) if reactive_power.strip() else 0.0
+        except ValueError:
+            reactive_power = 0.0
         powerfactor = request.POST.get('powerfactor', 0)
+        try:
+            powerfactor = float(powerfactor) if powerfactor.strip() else 0.0
+        except ValueError:
+            powerfactor = 0.0
 
-        # 获取对应开关并设置状态
-        dev = DevControl.objects.get(num=num)
-        dev.switch_status = switch_status
-        dev.active_power = float(active_power)
-        dev.reactive_power = float(reactive_power)
-        dev.powerfactor = float(powerfactor)
-        dev.save()
+        # 获取设备对象，并更新其状态和功率数据
+        try:
+            dev = DevControl.objects.get(num=num)  # 根据设备编号获取设备对象
+            dev.switch_status = switch_status  # 更新开关状态
+            dev.active_power = active_power  # 更新有功功率
+            dev.reactive_power = reactive_power  # 更新无功功率
+            dev.powerfactor = powerfactor  # 更新功率因数
+            dev.save()  # 保存修改
+        except DevControl.DoesNotExist:
+            # 如果设备不存在，返回错误响应
+            return HttpResponse("设备未找到", status=404)
+        except Exception as e:
+            # 捕获其他异常并记录日志
+            print(f"更新设备状态时发生错误: {e}")
+            return HttpResponse("内部错误", status=500)
 
         return HttpResponseRedirect('/device_manage/?ask_dev={0}'.format(ask_dev))
 
 
 # 电池属性
-class BattaryPropertyView(View):
+class BatteryPropertyView(View):
     def post(self, request):
         num = request.POST.get("num","")
         rated_capacity = request.POST.get("rated_capacity","")
 
-        battaryproperty = BattatyProperty.objects.get(battary_num=num)
-        battaryproperty.rated_capacity = rated_capacity
-        battaryproperty.save()
+        batteryproperty = BatteryProperty.objects.get(battery_num=num)
+        batteryproperty.rated_capacity = rated_capacity
+        batteryproperty.save()
         return HttpResponseRedirect('/dev_info/?num={0}&&type={1}'.format(num,12))
 
 # PSO ；粒子群优化算法
@@ -598,10 +626,10 @@ class PsoView(View):
         try:
             microgrid_max = float(request.GET.get("microgrid_max", 300))
             microgrid_min = float(request.GET.get("microgrid_min", -300))
-            battary_output = float(request.GET.get("battary_output", 400))
-            battary_input = float(request.GET.get("battary_input", 400))
+            battery_output = float(request.GET.get("battery_output", 400))
+            battery_input = float(request.GET.get("battery_input", 400))
             print(
-                f"microgrid_max: {microgrid_max}, microgrid_min: {microgrid_min}, battary_output: {battary_output}, battary_input: {battary_input}")
+                f"microgrid_max: {microgrid_max}, microgrid_min: {microgrid_min}, battery_output: {battery_output}, battery_input: {battery_input}")
 
         except ValueError:
             # 如果用户输入的值无法转换为数值类型，返回错误信息
@@ -634,13 +662,13 @@ class PsoView(View):
         # 微网输入电网最小功率
         GridMinImportPower = microgrid_min
         # 储能最大放电功率
-        StorageMaxDischargingPower = battary_output
+        StorageMaxDischargingPower = battery_output
         # 储能最大充电功率
-        StorageMaxChargingPower = battary_input
+        StorageMaxChargingPower = battery_input
         # 最大迭代次数300,5000
-        Max_Dt = 500
+        Max_Dt = 300
         D = 25  #搜索空间维数（未知数个数）24+1
-        N = 600  #粒子个数600,100
+        N = 500 #粒子个数600,100
         w_max = 0.9  #w权重上限
         w_min = 0.4  #w权重下限
         v_max = 2.0  #w速度变量上限
@@ -802,16 +830,16 @@ class PsoView(View):
         for i in range(0, D - 1):
             SUM = SUM - (P_load[i] - P_pv[i] - pg[i])
         microgrid = pg1.tolist()
-        battray = pg2.tolist()
+        battery = pg2.tolist()
         return render(request, 'pso.html', {
             'nav':nav,
             'microgrid_max': microgrid_max,
             'microgrid_min': microgrid_min,
-            'battary_output': battary_output,
-            'battary_input': battary_input,
+            'battery_output': battery_output,
+            'battery_input': battery_input,
 
-            'microgrid':microgrid,
-            'battray':battray,
+            'microgrid': microgrid,
+            'battery': battery,
 
         })
 

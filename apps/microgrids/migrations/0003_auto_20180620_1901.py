@@ -13,16 +13,16 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AlterModelOptions(
-            name='battarydata',
+            name='batterydata',
             options={'verbose_name': '蓄电池数据', 'verbose_name_plural': '蓄电池数据'},
         ),
         migrations.AlterModelOptions(
-            name='battatyproperty',
+            name='batteryproperty',
             options={'verbose_name': '蓄电池属性', 'verbose_name_plural': '蓄电池属性'},
         ),
         migrations.AddField(
-            model_name='battatyproperty',
-            name='battary_num',
+            model_name='batteryproperty',
+            name='battery_num',
             field=models.CharField(default=1, max_length=20, unique=True, verbose_name='电池编号'),
             preserve_default=False,
         ),

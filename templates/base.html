@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 {% load static %}
-<html lang="zh-CN">
+<html lang="en-us">
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Microgrid Energy Management System{% endblock %}</title>
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
     {% block custom_css %}{% endblock %}
-    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
+{#    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>#}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     {% block custom_js %}{% endblock %}
 </head>

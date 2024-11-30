@@ -27,8 +27,8 @@ class Migration(migrations.Migration):
                 ('powerfactor', models.FloatField(blank=True, null=True, verbose_name='功率因素设置')),
             ],
             options={
-                'verbose_name': '设备控制信息',
-                'verbose_name_plural': '设备控制信息',
+                'verbose_name': 'Device Control Info',
+                'verbose_name_plural': 'Device Control Info',
             },
         ),
         migrations.CreateModel(
@@ -38,8 +38,8 @@ class Migration(migrations.Migration):
                 ('env_num', models.CharField(max_length=20, unique=True, verbose_name='环境地址编号')),
             ],
             options={
-                'verbose_name': '环境地址',
-                'verbose_name_plural': '环境地址',
+                'verbose_name': 'Environmental Address',
+                'verbose_name_plural': 'Environmental Address',
             },
         ),
         migrations.CreateModel(
@@ -70,8 +70,8 @@ class Migration(migrations.Migration):
                 ('period_ultraviolet_radiation', models.FloatField(blank=True, null=True, verbose_name='紫外辐射时间间隔累计值')),
             ],
             options={
-                'verbose_name': '环境数据',
-                'verbose_name_plural': '环境数据',
+                'verbose_name': 'Environmental Data',
+                'verbose_name_plural': 'Environmental Data',
             },
         ),
         migrations.CreateModel(
@@ -83,8 +83,8 @@ class Migration(migrations.Migration):
                 ('img', models.ImageField(upload_to='img', verbose_name='图片')),
             ],
             options={
-                'verbose_name': '图片管理',
-                'verbose_name_plural': '图片管理',
+                'verbose_name': 'Picture Managment',
+                'verbose_name_plural': 'Picture Managment',
             },
         ),
         migrations.CreateModel(
@@ -108,8 +108,8 @@ class Migration(migrations.Migration):
                 ('grid_freq', models.FloatField(blank=True, null=True, verbose_name='电网频率')),
             ],
             options={
-                'verbose_name': '光伏逆变器模拟量数据1',
-                'verbose_name_plural': '光伏逆变器模拟量数据1',
+                'verbose_name': 'PVI Analog Data 1',
+                'verbose_name_plural': 'PVI Analog Data 1',
             },
         ),
         migrations.CreateModel(
@@ -129,8 +129,8 @@ class Migration(migrations.Migration):
                 ('co2_reduce', models.FloatField(blank=True, null=True, verbose_name='CO2减排量')),
             ],
             options={
-                'verbose_name': '光伏逆变器模拟量数据2',
-                'verbose_name_plural': '光伏逆变器模拟量数据2',
+                'verbose_name': 'PVI Analog Data 2',
+                'verbose_name_plural': 'PVI Analog Data 2',
             },
         ),
         migrations.CreateModel(
@@ -162,8 +162,8 @@ class Migration(migrations.Migration):
                 ('island_protection', models.IntegerField(blank=True, choices=[(0, '启动'), (1, '未启动')], null=True, verbose_name='孤岛保护')),
             ],
             options={
-                'verbose_name': '光伏逆变器数字量数据',
-                'verbose_name_plural': '光伏逆变器数字量数据',
+                'verbose_name': 'PVI Digital Quantity Data',
+                'verbose_name_plural': 'PVI Digital Quantity Data',
             },
         ),
         migrations.CreateModel(
@@ -174,13 +174,13 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=50, verbose_name='区域/设备/元件名')),
                 ('remark', models.CharField(blank=True, max_length=200, null=True, verbose_name='备注')),
                 ('type', models.IntegerField(choices=[(1, '子区域'), (2, '设备组'), (3, '具体发电设备')], verbose_name='编号类型')),
-                ('area_type', models.IntegerField(choices=[(0, '间隔区'), (1, '光伏区'), (2, '风力区'), (3, '燃机区'), (4, '电池储能区'), (5, '飞轮储能区'), (6, '控制区'), (7, '环境')], verbose_name='区域类别')),
+                ('area_type', models.IntegerField(choices=[(0, 'Spacer Area'), (1, 'PV Area'), (2, 'Wind Power Area'), (3, 'Gas Turbine Area'), (4, 'Battery Energy Storage Area'), (5, 'Flywheel Energy Storage Area'), (6, 'Control Area'), (7, 'Environment')], verbose_name='区域类别')),
                 ('control_belong', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='sub2', to='microgrids.WebMicrogrid', to_field='num', verbose_name='控制区域所属')),
                 ('parent_area', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='sub', to='microgrids.WebMicrogrid', to_field='num', verbose_name='设备上级')),
             ],
             options={
-                'verbose_name': '微电网设备web管理',
-                'verbose_name_plural': '微电网设备web管理',
+                'verbose_name': 'Web Management of Microgrid Devices',
+                'verbose_name_plural': 'Web Management of Microgrid Devices',
             },
         ),
     ]

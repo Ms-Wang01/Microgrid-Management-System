@@ -209,6 +209,11 @@ class AdminSite(object):
         if not cacheable:
             inner = never_cache(inner)
         return update_wrapper(inner, view)
+        # def inner(request, *args, **kwargs):
+        #     if not self.has_permission(request) and getattr(view, 'need_site_permission', True):
+        #         return self.create_admin_view(self.login_view)(request, *args, **kwargs)
+        #     response = view(request, *args, **kwargs)
+        #     return response
 
     def _get_merge_attrs(self, option_class, plugin_class):
         return dict([(name, getattr(option_class, name)) for name in dir(option_class)
@@ -289,7 +294,7 @@ class AdminSite(object):
         return self.get_view_class(admin_view_class, option_class).as_view()
 
     def get_urls(self):
-        from django.urls import include, re_path
+        from django.conf.urls import include, url  # Use this for Django 1.11
         from xadmin.views.base import BaseAdminView
 
         if settings.DEBUG:
@@ -302,14 +307,14 @@ class AdminSite(object):
 
         # Admin-site-wide views.
         urlpatterns = [
-            re_path(r'^jsi18n/$', wrap(self.i18n_javascript, cacheable=True), name='jsi18n')
+            url(r'^jsi18n/$', wrap(self.i18n_javascript, cacheable=True), name='jsi18n')
         ]
 
         # Registed admin views
         # inspect[isclass]: Only checks if the object is a class. With it lets you create an custom view that
         # inherits from multiple views and have more of a metaclass.
         urlpatterns += [
-            re_path(
+            url(
                 path,
                 wrap(self.create_admin_view(clz_or_func))
                 if inspect.isclass(clz_or_func) and issubclass(clz_or_func, BaseAdminView)
@@ -322,7 +327,7 @@ class AdminSite(object):
         # Add in each model's views.
         for model, admin_class in iteritems(self._registry):
             view_urls = [
-                re_path(
+                url(
                     path,
                     wrap(self.create_model_admin_view(clz, model, admin_class)),
                     name=name % (model._meta.app_label, model._meta.model_name)
@@ -330,7 +335,7 @@ class AdminSite(object):
                 for path, clz, name in self._registry_modelviews
             ]
             urlpatterns += [
-                re_path(r'^%s/%s/' % (model._meta.app_label, model._meta.model_name), include(view_urls))
+                url(r'^%s/%s/' % (model._meta.app_label, model._meta.model_name), include(view_urls))
             ]
         return urlpatterns
 

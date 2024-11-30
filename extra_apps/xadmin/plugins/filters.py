@@ -3,7 +3,7 @@ from future.utils import iteritems
 from xadmin import widgets
 from xadmin.plugins.utils import get_context_dict
 
-from django.contrib.admin.utils import get_fields_from_path, lookup_spawns_duplicates
+from django.contrib.admin.utils import get_fields_from_path
 from django.core.exceptions import SuspiciousOperation, ImproperlyConfigured, ValidationError
 from django.db import models
 from django.core.exceptions import FieldDoesNotExist
@@ -127,8 +127,7 @@ class FilterPlugin(BaseAdminPlugin):
                         spec.title = "%s %s" % (field_parts[-2].name, spec.title)
 
                     # Check if we need to use distinct()
-                    use_distinct = (use_distinct or
-                                    lookup_spawns_duplicates(self.opts, field_path))
+                    use_distinct = True
                 if spec and spec.has_output():
                     try:
                         new_qs = spec.do_filte(queryset)
@@ -149,8 +148,7 @@ class FilterPlugin(BaseAdminPlugin):
 
         try:
             for key, value in lookup_params.items():
-                use_distinct = (
-                    use_distinct or lookup_spawns_duplicates(self.opts, key))
+                use_distinct = True
         except FieldDoesNotExist as e:
             raise IncorrectLookupParameters(e)
 
@@ -195,9 +193,8 @@ class FilterPlugin(BaseAdminPlugin):
                 queryset = queryset.filter(reduce(operator.or_, or_queries))
             if not use_distinct:
                 for search_spec in orm_lookups:
-                    if lookup_spawns_duplicates(self.opts, search_spec):
-                        use_distinct = True
-                        break
+                    use_distinct = True
+                    break
             self.admin_view.search_query = query
 
         if use_distinct:

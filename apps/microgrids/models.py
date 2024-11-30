@@ -45,7 +45,7 @@ class DevControl(models.Model):
     powerfactor = models.FloatField(blank=True, null=True, verbose_name='功率因素设置')
 
     class Meta:
-        verbose_name = '设备控制信息'
+        verbose_name = 'Device Control Info'
         verbose_name_plural = verbose_name
 
     def __str__(self):
@@ -54,7 +54,7 @@ class DevControl(models.Model):
 
 # 以下数据为一些设备附带的显示属性
 # 数据类存储不进行外键关联，为在设备被移除时可以继续保存(保存时注意保持编号一致)因数据实时性要求不同，分类保存
-# 光伏逆变器模拟量数据1（实时性高数据，数据量大，需定时清除）
+# PVI Analog Data 1（实时性高数据，数据量大，需定时清除）
 class PVAnalogQuantityData1(models.Model):
     timestamp = models.DateTimeField(default=datetime.now, verbose_name='时间戳')
     pv_num = models.CharField(max_length=20, verbose_name='光伏逆变器编号')
@@ -72,14 +72,16 @@ class PVAnalogQuantityData1(models.Model):
     power_factor_c = models.FloatField(blank=True, null=True, verbose_name='C相功率因素')
     grid_freq = models.FloatField(blank=True, null=True, verbose_name='电网频率')
     class Meta:
-        verbose_name = u'光伏逆变器模拟量数据1'
+        verbose_name = u'PVI Analog Data 1'
         verbose_name_plural = verbose_name
 
+    # def __str__(self):
+    #     return self.timestamp
     def __str__(self):
-        return self.timestamp
+        return self.timestamp.strftime('%Y-%m-%d %H:%M:%S')  # Format as a string
 
 
-# 光伏逆变器模拟量数据2（常年数据，定时保存）
+# PVI Analog Data 2（常年数据，定时保存）
 class PVAnalogQuantityData2(models.Model):
     timestamp = models.DateTimeField(default=datetime.now, verbose_name='时间戳')
     pv_num = models.CharField(max_length=20, verbose_name='光伏逆变器编号')
@@ -94,14 +96,15 @@ class PVAnalogQuantityData2(models.Model):
     co2_reduce = models.FloatField(blank=True, null=True, verbose_name='CO2减排量')
 
     class Meta:
-        verbose_name = u'光伏逆变器模拟量数据2'
+        verbose_name = u'PVI Analog Data 2'
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return self.timestamp
+        # 转换 datetime 为字符串格式，例如 'YYYY-MM-DD HH:MM:SS'
+        return self.timestamp.strftime('%Y-%m-%d %H:%M:%S')
 
 
-# 光伏逆变器数字量数据（异常状态）
+# PVI Digital Quantity Data（异常状态）
 class PVDigitalQuantityData(models.Model):
     IS_STATUS =(
         (0, '是'),
@@ -140,7 +143,7 @@ class PVDigitalQuantityData(models.Model):
     island_protection = models.IntegerField(choices=(BUTTON_STATUS), blank=True, null=True, verbose_name='孤岛保护')
 
     class Meta:
-        verbose_name = u'光伏逆变器数字量数据'
+        verbose_name = u'PVI Digital Quantity Data'
         verbose_name_plural = verbose_name
 
     def __str__(self):
@@ -148,8 +151,8 @@ class PVDigitalQuantityData(models.Model):
 
 
 # 电池属性
-class BattatyProperty(models.Model):
-    battary_num = models.CharField(max_length=20, unique=True, verbose_name='电池编号')
+class BatteryProperty(models.Model):
+    battery_num = models.CharField(max_length=20, unique=True, verbose_name='电池编号')
     rated_capacity = models.FloatField(blank=True, null=True, verbose_name='电池额定电量')
 
     class Meta:
@@ -157,13 +160,13 @@ class BattatyProperty(models.Model):
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return self.battary_num
+        return self.battery_num
 
 
 # 电池数据
-class BattaryData(models.Model):
+class BatteryData(models.Model):
     timestamp = models.DateTimeField(default=datetime.now, verbose_name='时间戳')
-    battary_num = models.CharField(max_length=20, unique=True, verbose_name='电池编号')
+    battery_num = models.CharField(max_length=20, unique=True, verbose_name='电池编号')
     soc = models.FloatField(blank=True, null=True, verbose_name='电池剩余电量')
 
     class Meta:
@@ -171,7 +174,7 @@ class BattaryData(models.Model):
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return self.battary_num
+        return self.battery_num
 
 
 # 负载数据
@@ -189,12 +192,12 @@ class LoadData(models.Model):
         return self.load_num
 
 
-# 环境地址
+# Environmental Address
 class EnvAddressC(models.Model):
     env_num = models.CharField(max_length=20, unique=True, verbose_name='环境地址编号')
 
     class Meta:
-        verbose_name = u'环境地址'
+        verbose_name = u'Environmental Address'
         verbose_name_plural = verbose_name
 
     def __str__(self):
@@ -230,15 +233,17 @@ class EnvironmentData(models.Model):
     period_ultraviolet_radiation = models.FloatField(blank=True, null=True, verbose_name=u'紫外辐射时间间隔累计值')
 
     class Meta:
-        verbose_name = u'环境数据'
+        verbose_name = u'Environmental Data'
         verbose_name_plural = verbose_name
 
+    # def __str__(self):
+    #     return self.timestamp
     def __str__(self):
-        return self.timestamp
+        return self.timestamp.strftime('%Y-%m-%d %H:%M:%S')  # Format as string
 
 
 # ##########################Web逻辑管理区#######################################
-# 微电网设备web管理（区域/设备/元件管理）(重构)
+# Web Management of Microgrid Devices（区域/设备/元件管理）(重构)
 class WebMicrogrid(models.Model):
     # 分级
     TYPE = (
@@ -248,15 +253,15 @@ class WebMicrogrid(models.Model):
     )
     # 区域类别
     AREA_TYPE = (
-        (0, '间隔区'),   # 里面主要为PCC
-        (1, '光伏区'),
-        (2, '风力区'),
-        (3, '燃机区'),
-        (4, '电池储能区'),
-        (5, '飞轮储能区'),
-        (6, '负载区'),
-        (7, '控制区'), # 控制区域包含各类和控制相关设备和开关
-        (8, '环境')
+        (0, 'Spacer Area'),   # 里面主要为PCC
+        (1, 'PV Area'),
+        (2, 'Wind Power Area'),
+        (3, 'Gas Turbine Area'),
+        (4, 'Battery Energy Storage Area'),
+        (5, 'Flywheel Energy Storage Area'),
+        (6, 'Load Area'),
+        (7, 'Control Area'), # 控制区域包含各类和控制相关设备和开关
+        (8, 'Environment')
     )
     # 设备名称
     # 保存对应本地设备地址
@@ -274,7 +279,7 @@ class WebMicrogrid(models.Model):
     control_belong = models.ForeignKey('self', to_field='num', null=True, blank=True, related_name='sub2', verbose_name=u'控制区域所属', on_delete=models.CASCADE)
 
     class Meta:
-        verbose_name = u'微电网设备web管理'
+        verbose_name = u'Web Management of Microgrid Devices'
         verbose_name_plural = verbose_name
 
     def __str__(self):
@@ -288,7 +293,7 @@ class Img(models.Model):
     img = models.ImageField(upload_to='img', verbose_name='图片')
 
     class Meta:
-        verbose_name = '图片管理'
+        verbose_name = 'Picture Managment'
         verbose_name_plural = verbose_name
 
     def __str__(self):

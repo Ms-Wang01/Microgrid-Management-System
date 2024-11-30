@@ -14,16 +14,16 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='BattaryData',
+            name='BatteryData',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('timestamp', models.DateTimeField(default=datetime.datetime.now, verbose_name='时间戳')),
-                ('battary_num', models.CharField(max_length=20, unique=True, verbose_name='电池编号')),
+                ('battery_num', models.CharField(max_length=20, unique=True, verbose_name='电池编号')),
                 ('soc', models.FloatField(blank=True, null=True, verbose_name='电池剩余电量')),
             ],
         ),
         migrations.CreateModel(
-            name='BattatyProperty',
+            name='BatteryProperty',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('rated_capacity', models.FloatField(blank=True, null=True, verbose_name='电池额定电量')),
@@ -51,6 +51,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='webmicrogrid',
             name='area_type',
-            field=models.IntegerField(choices=[(0, '间隔区'), (1, '光伏区'), (2, '风力区'), (3, '燃机区'), (4, '电池储能区'), (5, '飞轮储能区'), (6, '负载区'), (7, '控制区'), (8, '环境')], verbose_name='区域类别'),
+            field=models.IntegerField(choices=[(0, 'Spacer Area'), (1, 'PV Area'), (2, 'Wind Power Area'), (3, 'Gas Turbine Area'), (4, 'Battery Energy Storage Area'), (5, 'Flywheel Energy Storage Area'), (6, 'Load Area'), (7, 'Control Area'), (8, 'Environment')], verbose_name='区域类别'),
         ),
     ]

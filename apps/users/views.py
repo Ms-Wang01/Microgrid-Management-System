@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views import View
-from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth import authenticate, login, logout
 
 from users.forms import LoginForm
 from django.contrib.auth.models import User
@@ -10,22 +10,15 @@ from .models import UserProfile
 
 # Create your views here.
 
-
-#登录
+# 登录
 class LoginView(View):
     def get(self, request):
         # 用户登录状态直接跳转（cookie）
         if request.user.is_authenticated:
             return HttpResponseRedirect(reverse('overview'))
         login_form = LoginForm()
-        return render(request, 'login.html', {})
+        return render(request, 'login.html', {'login_form': login_form})
 
-    def post(self, request):
-        # 创建一个匿名用户
-        user = UserProfile.objects.get_or_create(username='anonymous')[0]
-        # 登录匿名用户
-        login(request, user)
-        return HttpResponseRedirect(reverse('overview'))
     def post(self, request):
         login_form = LoginForm(request.POST)
         # form验证是否正确
@@ -47,4 +40,4 @@ class LoginView(View):
 class LogoutView(View):
     def get(self, request):
         logout(request)
-        return render(request, 'login.html', {})
+        return HttpResponseRedirect(reverse('login'))  # Redirect to login page after logout

@@ -13,8 +13,7 @@ from xadmin.layout import Layout
 class QuickFormPlugin(BaseAdminPlugin):
 
     def init_request(self, *args, **kwargs):
-        if self.request.method == 'GET' and (self.request.headers.get('x-requested-with') == 'XMLHttpRequest' or
-        "_ajax" in self.request.GET):
+        if self.request.method == 'GET' and (self.request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest' or "_ajax" in self.request.GET):
             self.admin_view.add_form_template = 'xadmin/views/quick_form.html'
             self.admin_view.change_form_template = 'xadmin/views/quick_form.html'
             return True

@@ -59,13 +59,15 @@ class LoginView(BaseAdminView):
             REDIRECT_FIELD_NAME: request.get_full_path(),
         })
         defaults = {
-            'extra_context': context,
-            'current_app': self.admin_site.name,
+            # 'extra_context': context,
+            # 'current_app': self.admin_site.name,
             'authentication_form': self.login_form or AdminAuthenticationForm,
             'template_name': self.login_template or 'xadmin/views/login.html',
         }
+
         self.update_params(defaults)
-        return login(request, **defaults)
+        # return login(request, **defaults)
+        return login(request, user=self.user)
 
     @method_decorator(never_cache)
     def post(self, request, *args, **kwargs):

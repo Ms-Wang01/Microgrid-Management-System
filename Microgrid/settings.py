@@ -42,12 +42,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'xadmin',
     'crispy_forms',
-    'crispy_bootstrap3',
+    # 'crispy_bootstrap3',
     'users',
     'microgrids',
     'import_export'
 ]
-CRISPY_TEMPLATE_PACK = 'bootstrap3'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 AUTH_USER_MODEL = "users.UserProfile"
 LOGIN_URL = '/login/'
 MIDDLEWARE = [
@@ -89,8 +89,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'microgriddata',
-        'USER': 'wbj',
-        'PASSWORD': 'YOURPassWord',
+        'USER': 'root',
+        'PASSWORD': 'w4zhjiqi',
         'HOST': 'localhost',
         'PORT': '3306',
         'OPTIONS': {'init_command': 'SET default_storage_engine=INNODB;'},
@@ -119,9 +119,14 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+    }
+}
 
-LANGUAGE_CODE = 'zh-hans'
-
+# LANGUAGE_CODE = 'zh-hans'
+LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True

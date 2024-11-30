@@ -373,8 +373,8 @@ class NotRelationField(Exception):
 
 
 def get_model_from_relation(field):
-    if field.remote_fieldated_model:
-        return field.remote_fieldated_model
+    if field.related_model:
+        return field.related_model
     elif is_related_field(field):
         return field.model
     elif getattr(field, 'rel'):  # or isinstance?

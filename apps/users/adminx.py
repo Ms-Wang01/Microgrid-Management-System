@@ -13,8 +13,8 @@ class BaseSettings(object):
 
 # 管理系统页头页脚设置
 class GlobalSettings(object):
-    site_title = '微电网能量管理系统后台'
-    site_footer = '微电网能量管理系统'
+    site_title = 'Microgrid Energy Management System Background'
+    site_footer = 'Microgrid Energy Management System'
     menu_style = 'accordion'
 
 

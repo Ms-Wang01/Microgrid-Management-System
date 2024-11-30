@@ -66,7 +66,7 @@ class WizardFormPlugin(BaseAdminPlugin):
 
     # Plugin replace methods
     def init_request(self, *args, **kwargs):
-        if (self.request.headers.get('x-requested-with') == 'XMLHttpRequest' or
+        if (self.request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest' or
                 "_ajax" in self.request.GET or
                 not hasattr(self.request, 'session') or
                 (args and not self.wizard_for_update)):

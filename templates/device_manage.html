@@ -8,7 +8,7 @@
     <div class="container-fluid">
         <div class="dev-left">
             <div class="dev-box1">
-                <!-- 多级栏下拉效果 -->
+                <!-- Multi-Level Dropdown Effect -->
                 <div class="panel-group">
                     <div class="panel">
                         <div class="panel-heading" >
@@ -18,33 +18,33 @@
                             {% for area_a in message_left %}
                                 <div class="list-group-item" >
                                     <a href="#" style="text-decoration: none;color: black;font-weight: bold">{{ area_a.1 }}</a>
-                                    <a data-toggle="collapse" href="#collapse{{ area_a.0 }}" title="收放" style="float: right"><span class="glyphicon glyphicon-resize-vertical">&nbsp;</span></a>
-                                    <a href="{% url 'dev_add' %}?area_a={{ area_a.0 }}&num=&type=1" title="添加子项" style="float: right" ><span class="glyphicon glyphicon-plus-sign">&nbsp;</span></a>
+                                    <a data-toggle="collapse" href="#collapse{{ area_a.0 }}" title="Toggle" style="float: right"><span class="glyphicon glyphicon-resize-vertical">&nbsp;</span></a>
+                                    <a href="{% url 'dev_add' %}?area_a={{ area_a.0 }}&num=&type=1" title="Add Subitem" style="float: right" ><span class="glyphicon glyphicon-plus-sign">&nbsp;</span></a>
                                 </div>
                                 <div id="collapse{{ area_a.0 }}" class="panel-collapse collapse">
-                                    <!-- 二级目录 -->
+                                    <!-- Second Level -->
                                     {% for area in area_a.2  %}
                                         <div class="list-group-item " >
                                             <a href="#" style="text-decoration: none;color: black " id="{{ area.0 }}" >&nbsp;&nbsp;{{ area.1 }}({{ area.0 }})</a>
-                                            <a data-toggle="collapse" href="#collapse{{ area.0 }}" title="收放" style="float: right"><span class="glyphicon glyphicon-resize-vertical">&nbsp;</span></a>
-                                            <a href="{% url 'dev_add' %}?area_a={{ area_a.0 }}&num={{ area.0 }}&type=2" title="添加子项" style="float: right"><span class="glyphicon glyphicon-plus-sign">&nbsp;</span></a>
-                                            <a href="{% url 'dev_del' %}?num={{ area.0 }}" title="删除" style="float: right" onclick="return confirm('确认删除该区域/设备及其子项和控制项?')"><span class="glyphicon glyphicon-minus-sign">&nbsp;</span></a>
+                                            <a data-toggle="collapse" href="#collapse{{ area.0 }}" title="Toggle" style="float: right"><span class="glyphicon glyphicon-resize-vertical">&nbsp;</span></a>
+                                            <a href="{% url 'dev_add' %}?area_a={{ area_a.0 }}&num={{ area.0 }}&type=2" title="Add Subitem" style="float: right"><span class="glyphicon glyphicon-plus-sign">&nbsp;</span></a>
+                                            <a href="{% url 'dev_del' %}?num={{ area.0 }}" title="Delete" style="float: right" onclick="return confirm('Are you sure you want to delete this area/device and its subitems and controls?')"><span class="glyphicon glyphicon-minus-sign">&nbsp;</span></a>
                                         </div>
                                         <div id="collapse{{ area.0 }}" class="panel-collapse collapse">
-                                            <!-- 三级目录 -->
+                                            <!-- Third Level -->
                                             {% for group in area.2  %}
                                                 <div class="list-group-item " >
                                                     <a href="{% url 'device' %}?ask_dev={{ group.0 }}" style="text-decoration: none;color: darkgreen" id="{{ group.0 }}">&nbsp;&nbsp;&nbsp;&nbsp; {{ group.1 }}({{ group.0 }})</a>
-                                                    <a data-toggle="collapse" href="#collapse{{ group.0 }}" title="收放" style="float: right"><span class="glyphicon glyphicon-resize-vertical">&nbsp;</span></a>
-                                                    <a href="{% url 'dev_add' %}?area_a={{ area_a.0 }}&num={{ group.0 }}&type=3" title="添加子项" style="float: right"><span class="glyphicon glyphicon-plus-sign">&nbsp;</span></a>
-                                                    <a href="{% url 'dev_del' %}?num={{ group.0 }}" title="删除" style="float: right" onclick="return confirm('确认删除该设备及其子项及控制项?')"><span class="glyphicon glyphicon-minus-sign">&nbsp;</span></a>
+                                                    <a data-toggle="collapse" href="#collapse{{ group.0 }}" title="Toggle" style="float: right"><span class="glyphicon glyphicon-resize-vertical">&nbsp;</span></a>
+                                                    <a href="{% url 'dev_add' %}?area_a={{ area_a.0 }}&num={{ group.0 }}&type=3" title="Add Subitem" style="float: right"><span class="glyphicon glyphicon-plus-sign">&nbsp;</span></a>
+                                                    <a href="{% url 'dev_del' %}?num={{ group.0 }}" title="Delete" style="float: right" onclick="return confirm('Are you sure you want to delete this device and its subitems and controls?')"><span class="glyphicon glyphicon-minus-sign">&nbsp;</span></a>
                                                 </div>
                                                 <div id="collapse{{ group.0 }}" class="panel-collapse collapse">
-                                                    <!-- 四级目录 -->
+                                                    <!-- Fourth Level -->
                                                     {% for dev in group.2 %}
                                                         <div class="list-group-item">
                                                             <a href="{% url 'device' %}?ask_dev={{ dev.0 }}" style="text-decoration: none;" id="{{ dev.0 }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ dev.1 }}({{ dev.0 }})</a>
-                                                            <a href="{% url 'dev_del' %}?num={{ dev.0 }}" title="删除" style="float: right" onclick="return confirm('确认删除该设备及控制项?')"><span class="glyphicon glyphicon-minus-sign">&nbsp;</span></a>
+                                                            <a href="{% url 'dev_del' %}?num={{ dev.0 }}" title="Delete" style="float: right" onclick="return confirm('Are you sure you want to delete this device and its controls?')"><span class="glyphicon glyphicon-minus-sign">&nbsp;</span></a>
                                                         </div>
                                                     {% endfor %}
                                                 </div>
@@ -60,19 +60,19 @@
         </div>
         <div class="dev-middle">
             <div class="dev-box2">
-                <div style="text-align: center;color: white;background-color: lawngreen;height: 40px;margin-bottom: 10px;"><h4 style="line-height: 40px;margin-top: 0px">微电网管理模型</h4></div>
+                <div style="text-align: center;color: white;background-color: lawngreen;height: 40px;margin-bottom: 10px;"><h4 style="line-height: 40px;margin-top: 0px">Microgrid Management Model</h4></div>
                 <div style="text-align: center; margin-bottom: 10px">
                     <img src="{{ big_power_grid_picture.img.url }}" style="width: 150px;height: 100px">
-                    <h6>Big_Microgrid</h6>
+                    <h6>Big Microgrid</h6>
                     <div style="text-align: center;">
                         {% for pcca in pcc_model %}
                             <div style="text-align: center;margin-left: 20px">
                                 {% if pcca.1 != '' %}
                                     <a href="{% url 'device' %}?ask_dev={{ pcca.1 }}" style="text-decoration: none;">
                                         {% if pcca.2 == 1 %}
-                                            <img src="{{ 控制区_闭合.img.url }}" style="width: 30px;height: 30px">
+                                            <img src="{{ Control_Area_Closed.img.url }}" style="width: 30px;height: 30px">
                                         {% else %}
-                                            <img src="{{ 控制区_断开.img.url }}" style="width: 30px;height: 30px">
+                                            <img src="{{ Control_Area_Open.img.url }}" style="width: 30px;height: 30px">
                                         {% endif %}
                                         <p>{{ pcca.1 }}</p>
                                     </a>
@@ -82,78 +82,74 @@
                     </div>
                 </div>
                 <div style="clear: left"></div>
-                <!-- 光伏区 -->
+                <!-- Photovoltaic Area -->
                 <div style="text-align: center;color: white;background-color: lawngreen;height: 30px;margin-bottom: 10px;">
-                    <h5 style="line-height: 30px;">光伏模型
+                    <h5 style="line-height: 30px;">Photovoltaic Model
                         <a data-toggle="collapse" href="#collapse_pv" style="float: right">
                             <span class="glyphicon glyphicon-chevron-down">&nbsp;</span>
                         </a>
                     </h5>
                 </div>
-                <div id="collapse_pv" class="panel-collapse collapse in" style="text-align: center;"> <!-- 一级区 -->
+                <div id="collapse_pv" class="panel-collapse collapse in" style="text-align: center;">
                     {% for pva in pv_model %}
-                        <div style="text-align: center;float: left;border: 1px grey dotted; "> <!-- 二级区 -->
+                        <div style="text-align: center;float: left;border: 1px grey dotted;">
                             <div style="text-align: center;color: white;background-color: lightskyblue;height: 20px;margin-bottom: 10px;"><h6 style="line-height: 20px;margin-top: 0px">{{ pva.0 }}</h6></div>
-                            <div style="text-align: center"><!-- 二级区控制 -->
+                            <div style="text-align: center">
                                 {% if pva.1 != '' %}
                                     <a href="{% url 'device' %}?ask_dev={{ pva.1 }}" style="text-decoration: none">
                                         {% if pva.2 == 1 %}
-                                            <img src="{{ 控制区_闭合.img.url }}" style="width: 30px;height: 30px">
+                                            <img src="{{ Control_Area_Closed.img.url }}" style="width: 30px;height: 30px">
                                         {% else %}
-                                            <img src="{{ 控制区_断开.img.url }}" style="width: 30px;height: 30px">
+                                            <img src="{{ Control_Area_Open.img.url }}" style="width: 30px;height: 30px">
                                         {% endif %}
                                         <p>{{ pva.1 }}</p>
                                     </a>
                                 {% endif %}
                             </div>
-                            <div style="text-align: center;"><!-- 二级区所有设备 -->
+                            <div style="text-align: center;">
                                 {% for pvI in pva.3 %}
-                                    <!-- 三级区 -->
                                     <div style="text-align: center;float: left">
-                                        <div style="text-align: center"><!-- 三级区控制 -->
+                                        <div style="text-align: center">
                                             {% if pvI.0 != '' %}
                                                 <a href="{% url 'device' %}?ask_dev={{ pvI.0 }}" style="text-decoration: none">
                                                     {% if pvI.2 == 1 %}
-                                                        <img src="{{ 控制区_闭合.img.url }}" style="width: 30px;height: 30px">
+                                                        <img src="{{ Control_Area_Closed.img.url }}" style="width: 30px;height: 30px">
                                                     {% else %}
-                                                        <img src="{{ 控制区_断开.img.url }}" style="width: 30px;height: 30px">
+                                                        <img src="{{ Control_Area_Open.img.url }}" style="width: 30px;height: 30px">
                                                     {% endif %}
-                                                    <p >{{ pvI.0 }}</p>
+                                                    <p>{{ pvI.0 }}</p>
                                                 </a>
                                             {% endif %}
                                         </div>
-                                        <div style="text-align: center"><!-- 三级区设备 -->
+                                        <div style="text-align: center">
                                             <a href="{% url 'device' %}?ask_dev={{ pvI.1 }}" style="text-decoration: none">
                                                 <img src="{{ pvI_picture.img.url }}" style="width: 100px;height: 100px">
-                                                <p >{{ pvI.1 }}</p>
+                                                <p>{{ pvI.1 }}</p>
                                             </a>
                                         </div>
-                                        <!-- 四级总区1 -->
                                         <div style="text-align: center;float: left">
                                             {% for pv in pvI.3 %}
-                                                <!-- 四级设备区 -->
                                                 <div style="text-align: center;float: left">
-                                                    <div style="text-align: center"><!-- 四级设备区控制 -->
+                                                    <div style="text-align: center">
                                                         {% if pv.0 != '' %}
                                                             <a href="{% url 'device' %}?ask_dev={{ pv.0 }}" style="text-decoration: none">
                                                                 {% if pv.2 == 1 %}
-                                                                    <img src="{{ 控制区_闭合.img.url }}" style="width: 30px;height: 30px">
+                                                                    <img src="{{ Control_Area_Closed.img.url }}" style="width: 30px;height: 30px">
                                                                 {% else %}
-                                                                    <img src="{{ 控制区_断开.img.url }}" style="width: 30px;height: 30px">
+                                                                    <img src="{{ Control_Area_Open.img.url }}" style="width: 30px;height: 30px">
                                                                 {% endif %}
-                                                                <p >{{ pv.0 }}</p>
+                                                                <p>{{ pv.0 }}</p>
                                                             </a>
                                                         {% endif %}
                                                     </div>
-                                                    <div style="text-align: center"><!-- 四级区具体设备 -->
+                                                    <div style="text-align: center">
                                                         <a href="{% url 'device' %}?ask_dev={{ pv.1 }}" style="text-decoration: none">
-                                                            <!-- 根据编号长度判断为光伏阵列或电池 -->
                                                             {% if pv.1|length == 8 %}
-                                                                <img src="{{ pv_picture.img.url }}" style="width: 40px;height: 40px">
+                                                                <img src="{{ PV.img.url }}" style="width: 40px;height: 40px">
                                                             {% else %}
                                                                 <img src="{{ battery_picture.img.url }}" style="width: 40px; height: 40px">
                                                             {% endif %}
-                                                            <p >{{ pv.1 }}</p>
+                                                            <p>{{ pv.1 }}</p>
                                                         </a>
                                                     </div>
                                                 </div>
@@ -166,75 +162,64 @@
                     {% endfor %}
                 </div>
                 <div style="clear: left"></div>
-                <!-- 蓄电池区
+                <!-- Load Area -->
                 <div style="text-align: center;color: white;background-color: lawngreen;height: 30px;margin-bottom: 10px;">
-                    <h5 style="line-height: 30px;">蓄电池模型
-                        <a data-toggle="collapse" href="#collapse_ba" style="float: right">
-                            <span class="glyphicon glyphicon-chevron-down">&nbsp;</span>
-                        </a>
-                    </h5>
-                </div>  -->
-                <!-- 负载区 -->
-                <div style="text-align: center;color: white;background-color: lawngreen;height: 30px;margin-bottom: 10px;">
-                    <h5 style="line-height: 30px;">负载模型
+                    <h5 style="line-height: 30px;">Load Model
                         <a data-toggle="collapse" href="#collapse_ba" style="float: right">
                             <span class="glyphicon glyphicon-chevron-down">&nbsp;</span>
                         </a>
                     </h5>
                 </div>
                 <div id="collapse_ba" class="panel-collapse collapse in" style="text-align: center;">
-                    <div id="collapse_ba" class="panel-collapse collapse in" style="text-align: center;">
-                        {% for la in load_model %}
-                            <div style="text-align: center;float: left;border: 1px grey dotted; "> <!-- 二级区 -->
-                                <div style="text-align: center;color: white;background-color: lightskyblue;height: 20px;margin-bottom: 10px;"><h6 style="line-height: 20px;margin-top: 0px">{{ la.0 }}</h6></div>
-                                <div style="text-align: center"><!-- 二级区控制 -->
-                                    {% if la.1 != '' %}
-                                        <a href="{% url 'device' %}?ask_dev={{ la.1 }}" style="text-decoration: none">
-                                            {% if la.2 == 1 %}
-                                                <img src="{{ CA_Open_picture.img.url }}" style="width: 30px;height: 30px">
-                                            {% else %}
-                                                <img src="{{ CA_Close_picture.img.url }}" style="width: 30px;height: 30px">
-                                            {% endif %}
-                                            <p>{{ la.1 }}</p>
-                                        </a>
-                                    {% endif %}
-                                </div>
-                                <div style="text-align: center;"><!-- 二级区所有设备 -->
-                                    {% for load in la.3 %}
-                                        <!-- 三级区 -->
-                                        <div style="text-align: center;float: left">
-                                            <div style="text-align: center"><!-- 三级区控制 -->
-                                                {% if load.0 != '' %}
-                                                    <a href="{% url 'device' %}?ask_dev={{ load.0 }}" style="text-decoration: none">
-                                                        {% if load.2 == 1 %}
-                                                            <img src="{{ CA_Open_picture.img.url }}" style="width: 30px;height: 30px">
-                                                        {% else %}
-                                                            <img src="{{ CA_Close_picture.img.url }}" style="width: 30px;height: 30px">
-                                                        {% endif %}
-                                                        <p >{{ load.0 }}</p>
-                                                    </a>
-                                                {% endif %}
-                                            </div>
-                                            <div style="text-align: center"><!-- 三级区设备 -->
-                                                <a href="{% url 'device' %}?ask_dev={{ load.1 }}" style="text-decoration: none">
-                                                    <img src="{{ load_picture.img.url }}" style="width: 100px;height: 100px">
-                                                    <p >{{ load.1 }}</p>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    {% endfor %}
-                                </div>
+                    {% for la in load_model %}
+                        <div style="text-align: center;float: left;border: 1px grey dotted;">
+                            <div style="text-align: center;color: white;background-color: lightskyblue;height: 20px;margin-bottom: 10px;"><h6 style="line-height: 20px;margin-top: 0px">{{ la.0 }}</h6></div>
+                            <div style="text-align: center">
+                                {% if la.1 != '' %}
+                                    <a href="{% url 'device' %}?ask_dev={{ la.1 }}" style="text-decoration: none">
+                                        {% if la.2 == 1 %}
+                                            <img src="{{ Control_Area_Open.img.url }}" style="width: 30px;height: 30px">
+                                        {% else %}
+                                            <img src="{{ Control_Area_Closed.img.url }}" style="width: 30px;height: 30px">
+                                        {% endif %}
+                                        <p>{{ la.1 }}</p>
+                                    </a>
+                                {% endif %}
                             </div>
-                        {% endfor %}
-                    </div>
+                            <div style="text-align: center;">
+                                {% for load in la.3 %}
+                                    <div style="text-align: center;float: left">
+                                        <div style="text-align: center">
+                                            {% if load.0 != '' %}
+                                                <a href="{% url 'device' %}?ask_dev={{ load.0 }}" style="text-decoration: none">
+                                                    {% if load.2 == 1 %}
+                                                        <img src="{{ Control_Area_Open.img.url }}" style="width: 30px;height: 30px">
+                                                    {% else %}
+                                                        <img src="{{ Control_Area_Closed.img.url }}" style="width: 30px;height: 30px">
+                                                    {% endif %}
+                                                    <p>{{ load.0 }}</p>
+                                                </a>
+                                            {% endif %}
+                                        </div>
+                                        <div style="text-align: center">
+                                            <a href="{% url 'device' %}?ask_dev={{ load.1 }}" style="text-decoration: none">
+                                                <img src="{{ load_picture.img.url }}" style="width: 100px;height: 100px">
+                                                <p>{{ load.1 }}</p>
+                                            </a>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
         <div class="dev-right">
             <div class="dev-box3">
-                <div style="text-align: center;color: white;background-color: lightskyblue;height: 40px;margin-bottom: 10px;"><h4 style="line-height: 40px;margin-top: 0px">控制管理</h4></div>
+                <div style="text-align: center;color: white;background-color: lightskyblue;height: 40px;margin-bottom: 10px;"><h4 style="line-height: 40px;margin-top: 0px">Control Management</h4></div>
                 <div>
-                    <!-- 控制区所有开关设置 -->
+                    <!-- All Switch Controls -->
                     {% for sw in swcs.1 %}
                         <form class="form-horizontal" action="{% url 'dev_ask' %}" method="post">
                             {% csrf_token %}
@@ -243,61 +228,61 @@
                                 <input type="hidden" value="{{ sw.0.0 }}" name="num">
                                 <div class="col-sm-4">
                                     <select class="form-control col-sm-4" name="switch_status">
-                                        <option value="0" {% if sw.0.1 == 0 %}selected{% endif %}>断开</option>
-                                        <option value="1" {% if sw.0.1 == 1 %}selected{% endif %}>闭合</option>
+                                        <option value="0" {% if sw.0.1 == 0 %}selected{% endif %}>Open</option>
+                                        <option value="1" {% if sw.0.1 == 1 %}selected{% endif %}>Closed</option>
                                     </select>
                                 </div>
                                 <input type="hidden" value="{{ swcs.0 }}" name="ask_dev">
                                 <div class="col-sm-4">
-                                    <button type="submit" class="btn btn-success" onclick="return confirm('确认设置?')">设置</button>
+                                    <button type="submit" class="btn btn-success" onclick="return confirm('Confirm Setting?')">Set</button>
                                 </div>
                             </div>
                         </form>
                     {% endfor %}
-                    <!-- 针对设备控制设置 -->
+                    <!-- Device-Specific Controls -->
                     <form class="form-horizontal" action="{% url 'dev_ask' %}" method="post">
                         {% csrf_token %}
                         {% if dev_c != '' %}
                             <div class="form-group">
-                                <label class="control-label col-sm-6">编号:</label>
+                                <label class="control-label col-sm-6">ID:</label>
                                 <label class="control-label col-sm-3">{{ dev_c.num }}</label>
                                 <input type="hidden" value="{{ dev_c.num }}" name="num">
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-6">状态控制:</label>
+                                <label class="control-label col-sm-6">Status Control:</label>
                                 <div class="col-sm-4">
                                     <select class="form-control col-sm-4" name="switch_status">
-                                        <option value="0" {% if dev_c.switch_status == 0 %}selected{% endif %}>断开</option>
-                                        <option value="1" {% if dev_c.switch_status == 1 %}selected{% endif %}>闭合</option>
+                                        <option value="0" {% if dev_c.switch_status == 0 %}selected{% endif %}>Open</option>
+                                        <option value="1" {% if dev_c.switch_status == 1 %}selected{% endif %}>Closed</option>
                                     </select>
                                 </div>
                             </div>
-                            <!-- 针对光伏逆变器的参数 -->
+                            <!-- Inverter Parameters -->
                             {% if dev_c.dev_type == 1 %}
                                 <div class="form-group">
-                                    <label class="control-label col-sm-6">有功功率设置:</label>
+                                    <label class="control-label col-sm-6">Active Power Setting:</label>
                                     <div class="col-sm-5">
                                         <input type="text" class="form-control" value="{{ dev_c.active_power }}" name="active_power">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-sm-6">无功功率设置:</label>
+                                    <label class="control-label col-sm-6">Reactive Power Setting:</label>
                                     <div class="col-sm-5">
-                                        <input type="text" class="form-control" value="{{ dev_c.active_power }}" name="reactive_power">
+                                        <input type="text" class="form-control" value="{{ dev_c.reactive_power }}" name="reactive_power">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-sm-6">功率因素设置:</label>
+                                    <label class="control-label col-sm-6">Power Factor Setting:</label>
                                     <div class="col-sm-5">
-                                        <input type="text" class="form-control" value="{{ dev_c.active_power }}" name="powerfactor">
+                                        <input type="text" class="form-control" value="{{ dev_c.powerfactor }}" name="powerfactor">
                                     </div>
                                 </div>
                             {% endif %}
                                 <input type="hidden" value="{{ dev_c.num }}" name="ask_dev">
                                 <div>
-                                    <div class="col-sm-7"></div>
-                                    <button type="submit" class="btn btn-success" onclick="return confirm('确认设置?')">设置</button>
-                                    <a href="{% url 'dev_info' %}?num={{ dev_c.num }}&&type={{ dev_c.dev_type }}" class="btn bg-info" role="button">设备信息</a>
+                                    <div class="col-sm-6"></div>
+                                    <button type="submit" class="btn btn-success" onclick="return confirm('Confirm Setting?')">Set</button>
+                                    <a href="{% url 'dev_info' %}?num={{ dev_c.num }}&&type={{ dev_c.dev_type }}" class="btn bg-info" role="button">Device Info</a>
                                 </div>
                         {% endif %}
                     </form>
